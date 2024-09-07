@@ -1,0 +1,36 @@
+{
+  "language":"en",
+  "projectName": {
+    "message": "Project name:"
+  },
+  "supportPlatforms":{
+    "message": "Please select the platform that your plugin will support.",
+    "hint":"- Space to select. Return to submit"
+  },
+  "shouldOverwrite": {
+    "dirForPrompts": {
+      "current": "Current directory",
+      "target": "Target directory"
+    },
+    "message": "is not empty. Remove existing files and continue?"
+  },
+  "packageName": {
+    "message": "Package name:",
+    "hint":"plugin's package name should start with 'leafer-x-' \nupper-layer application's package name should start with 'leafer-'\n",
+    "invalidMessage": "Invalid package.json name"
+  },
+  "errors": {
+    "operationCancelled": "Operation cancelled"
+  },
+  "defaultToggleOptions": {
+    "active": "Yes",
+    "inactive": "No"
+  },
+  "infos": {
+    "scaffolding": "Scaffolding project in",
+    "done": "Initialization complete. Now run:"
+  },
+  "welcome": {
+    "message": "Like a small tree sprouting, continuously growing, full of hope and vitality."
+  }
+}

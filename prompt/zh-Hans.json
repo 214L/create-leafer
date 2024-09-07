@@ -1,0 +1,36 @@
+{
+  "language":"zh",
+  "projectName": {
+    "message": "请输入项目名称："
+  },
+  "supportPlatforms": {
+    "message": "请选择插件将支持的平台",
+    "hint": "- 按下空格键选择，回车键提交"
+  },
+  "shouldOverwrite": {
+    "dirForPrompts": {
+      "current": "当前目录",
+      "target": "目标文件夹"
+    },
+    "message": "非空，是否覆盖？"
+  },
+  "packageName": {
+    "message": "请输入包名称:",
+    "hint": "插件命名规范:'leafer-x-插件名' \n上层应用命名规范:'leafer-应用名'\n",
+    "invalidMessage": "无效的 package.json 名称"
+  },
+  "errors": {
+    "operationCancelled": "操作取消"
+  },
+  "defaultToggleOptions": {
+    "active": "是",
+    "inactive": "否"
+  },
+  "infos": {
+    "scaffolding": "正在初始化项目",
+    "done": "项目初始化完成，可执行以下命令："
+  },
+  "welcome": {
+    "message": "像小树发芽一样不断成长，充满希望和生命力"
+  }
+}
