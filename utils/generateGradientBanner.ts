@@ -1,4 +1,5 @@
 import fs from 'node:fs'
+
 function rgbGradient(startRgb, endRgb, steps) {
   const gradient: Array<Array<number>> = []
   for (let i = 0; i < steps; i++) {
@@ -13,7 +14,6 @@ function rgbGradient(startRgb, endRgb, steps) {
     )
     gradient.push([r, g, b])
   }
-  console.log(gradient)
 
   return gradient
 }
@@ -36,8 +36,8 @@ function generateAnsiGradientText(text, startColor, endColor) {
 // const text = "LeaferJS - The High performance Canvas 2D graphics rendering engine.";
 // const text = 'LeaferJS - 绚丽多彩的 HTML5 Canvas 2D 图形渲染引擎.'
 // const text = '像小树发芽一样不断成长，充满希望和生命力.'
-const text = 'Like a small tree sprouting, continuously growing, full of hope and vitality.'
-
+const text =
+  'Like a small tree sprouting, continuously growing, full of hope and vitality.'
 
 // const startColor = 'rgb(50, 205, 121)' // 起始颜色
 // const endColor = 'rgb(250, 243, 57)' // 结束颜色
@@ -46,5 +46,5 @@ const startColor = 'rgb(255, 0, 238)' // 起始颜色
 const endColor = 'rgb(255, 170, 0)' // 结束颜色
 
 const ansiGradientText = generateAnsiGradientText(text, startColor, endColor)
-fs.writeFileSync('gradient_text.txt', JSON.stringify(ansiGradientText), 'utf8');
-console.log(ansiGradientText)
+// fs.writeFileSync('gradient_text.txt', JSON.stringify(ansiGradientText), 'utf8')
+// console.log(ansiGradientText)

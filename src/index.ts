@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 
-import { plugin } from './commands/plugin'
-import { init } from './commands/init.ts'
-import { Command } from 'commander'
 import path from 'path'
 import fs from 'fs-extra'
 import { type PackageJson } from 'type-fest'
+import { Command } from 'commander'
+import { create } from './commands/create'
+import { plugin } from './commands/plugin'
+import { init } from './commands/init'
 
 process.on('SIGINT', () => process.exit(0))
 process.on('SIGTERM', () => process.exit(0))
@@ -20,8 +21,9 @@ async function main() {
       '-v, --version',
       'display the version number'
     )
+    
   program.action(() => {
-    console.log('没有提供参数，执行默认操作...')
+    create()
   })
   program.addCommand(init)
   program.addCommand(plugin)

@@ -11,6 +11,7 @@ import { Command } from 'commander'
 // import { parseArgs } from 'node:util'
 
 import {
+  getBanners,
   getLeaferVersion,
   getPrompt,
   canSkipOverwriteOption,
@@ -27,25 +28,9 @@ export const plugin = new Command()
   //
   .action(async opts => {
     const promptMessage = getPrompt()
-    console.log()
-    if (promptMessage.language == 'zh') {
-      console.log(
-        process.stdout.isTTY && process.stdout.getColorDepth() > 8
-          ? banners.gradientZhBanner
-          : banners.defaultZhBanner
-      )
-    } else if (promptMessage.language == 'en') {
-      console.log(
-        process.stdout.isTTY && process.stdout.getColorDepth() > 8
-          ? banners.gradientEnBanner
-          : banners.defaultEnBanner
-      )
-    }
-
-    console.log()
-
     let leaferVersion = await getLeaferVersion()
-
+    let banners = getBanners(promptMessage.language)
+    console.log(banners.startingBanner)
     // const args = process.argv.slice(2)
 
     // const { values: argv } = parseArgs({
@@ -218,18 +203,6 @@ export const plugin = new Command()
     console.log(`  ${bold(lightGreen('npm install'))}`)
     console.log(`  ${bold(lightGreen('npm run start'))}`)
     console.log()
-    if (promptMessage.language == 'zh') {
-      console.log(
-        process.stdout.isTTY && process.stdout.getColorDepth() > 8
-          ? banners.gradientZhWelcome
-          : banners.defaultZhWelcome
-      )
-    } else if (promptMessage.language == 'en') {
-      console.log(
-        process.stdout.isTTY && process.stdout.getColorDepth() > 8
-          ? banners.gradientEnWelcome
-          : banners.defaultEnWelcome
-      )
-    }
+    console.log(banners.endingBanner)
     console.log()
   })
