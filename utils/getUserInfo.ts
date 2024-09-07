@@ -101,7 +101,7 @@ export function getPrompt() {
     'en-US' // Default fallback
   let locale = shellLocale.split('.')[0].replace('_', '-')
   locale = locale.startsWith('en') ? 'en-US' : 'zh-Hans'
-  const promptRoot = path.resolve(__dirname, 'prompt')
+  const promptRoot = path.resolve(__dirname, 'prompt-message')
   const languageFilePath = path.resolve(promptRoot, `${locale}.json`)
   const doesLanguageExist = fs.existsSync(languageFilePath)
 

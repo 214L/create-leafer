@@ -1,9 +1,9 @@
 import { describe, it, expect } from 'vitest'
 import { resolve } from 'node:path'
 import { readdirSync } from 'node:fs'
-import en from '../prompt/en-US.json'
+import en from '../prompt-message/en-US.json'
 
-const compareWithEn = readdirSync(resolve(__dirname, '../prompt')).filter((file) => {
+const compareWithEn = readdirSync(resolve(__dirname, '../prompt-message')).filter((file) => {
   return file.endsWith('.json') && !file.startsWith('en-US')
 })
 const defaultKeys = getKeys(en)
@@ -11,7 +11,7 @@ const defaultKeys = getKeys(en)
 describe('prompt message should include all keys', () => {
   compareWithEn.forEach((locale) => {
     it(`for ${locale}`, () => {
-      expect(getKeys(require(`../prompt/${locale}`))).toEqual(defaultKeys)
+      expect(getKeys(require(`../prompt-message/${locale}`))).toEqual(defaultKeys)
     })
   })
 })

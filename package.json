@@ -7,7 +7,7 @@
     "create-leaferx": "create-leafer.cjs"
   },
   "files": [
-    "prompt",
+    "prompt-message",
     "create-leaferx.cjs",
     "template"
   ],
@@ -15,7 +15,7 @@
     "test": "vitest",
     "build": "vitest --run && zx ./scripts/build.mjs",
     "dev": "zx ./scripts/build.mjs && node create-leaferx.cjs",
-    "update":"bash ./scripts/update.sh"
+    "update": "bash ./scripts/update.sh"
   },
   "keywords": [
     "leafer",
@@ -31,6 +31,9 @@
     "@types/eslint": "^9.6.0",
     "@types/node": "^20.14.15",
     "@types/prompts": "^2.4.9",
+    "@types/fs-extra": "^11.0.1",
+    "@types/lodash.template": "^4.5.1",
+    "type-fest": "^3.8.0",
     "ejs": "^3.1.10",
     "esbuild": "^0.18.20",
     "esbuild-plugin-license": "^1.2.3",
@@ -38,7 +41,9 @@
     "ora": "^8.0.1",
     "prompts": "^2.4.2",
     "vitest": "^2.0.5",
-    "zx": "^8.1.4"
+    "zx": "^8.1.4",
+    "commander": "^12.1.0",
+    "fs-extra": "^11.1.0"
   },
   "engines": {
     "node": ">= 14.18"
