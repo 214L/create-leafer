@@ -153,7 +153,7 @@ export const plugin = new Command()
       renderTemplate(templateDir, root)
     }
     // Render base template
-    render('base')
+    render('leaferx/base')
 
     // handle platform supportPlatforms
     let rollupConfigPath = path.resolve(root, 'rollup.config.js')
