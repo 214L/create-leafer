@@ -16,6 +16,10 @@
   },
   "packageName": {
     "message": "请输入包名称:",
+    "invalidMessage": "无效的 package.json 名称"
+  },
+  "pluginPackageName": {
+    "message": "请输入包名称:",
     "hint": "插件命名规范:'leafer-x-插件名' \n上层应用命名规范:'leafer-应用名'\n",
     "invalidMessage": "无效的 package.json 名称"
   },

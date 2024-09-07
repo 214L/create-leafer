@@ -1,14 +1,10 @@
-#!/usr/bin/env node
-
 import * as fs from 'node:fs'
 import * as path from 'node:path'
 import process from 'node:process'
 import prompts from 'prompts'
-import * as banners from '../../utils/banners'
 import { red, gray, bold, lightGreen } from 'kolorist'
 import ora from 'ora'
 import { Command } from 'commander'
-// import { parseArgs } from 'node:util'
 
 import {
   getBanners,
@@ -30,13 +26,9 @@ export const plugin = new Command()
     const promptMessage = getPrompt()
     let leaferVersion = await getLeaferVersion()
     let banners = getBanners(promptMessage.language)
+    console.log()
     console.log(banners.startingBanner)
-    // const args = process.argv.slice(2)
-
-    // const { values: argv } = parseArgs({
-    //   args,
-    //   strict: false
-    // })
+    console.log()
     let targetDir = ''
     let result: {
       projectName?: string
@@ -85,13 +77,13 @@ export const plugin = new Command()
           {
             name: 'packageName',
             type: () => (isValidPackageName(targetDir) ? null : 'text'),
-            message: `${promptMessage.packageName.message}\n${gray(
-              promptMessage.packageName.hint
+            message: `${promptMessage.pluginPackageName.message}\n${gray(
+              promptMessage.pluginPackageName.hint
             )}`,
             initial: () => toValidPackageName(targetDir),
             validate: dir =>
               isValidPackageName(dir) ||
-              promptMessage.packageName.invalidMessage
+              promptMessage.pluginPackageName.invalidMessage
           },
           {
             name: 'supportPlatforms',
@@ -148,6 +140,7 @@ export const plugin = new Command()
       version: '0.0.0',
       author
     }
+    
     fs.writeFileSync(
       path.resolve(root, 'package.json'),
       JSON.stringify(pkg, null, 2)
@@ -184,6 +177,8 @@ export const plugin = new Command()
       const existing = JSON.parse(fs.readFileSync(packagePath, 'utf8'))
       existing.dependencies['@leafer-ui/core'] = `^${leaferVersion}`
       existing.devDependencies['leafer-ui'] = `^${leaferVersion}`
+      existing.name=pkg.name;
+      existing.author=pkg.author;
       fs.writeFileSync(packagePath, JSON.stringify(existing, null, 2))
     }
     //finish

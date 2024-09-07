@@ -16,6 +16,10 @@
   },
   "packageName": {
     "message": "Package name:",
+    "invalidMessage": "Invalid package.json name"
+  },
+  "pluginPackageName": {
+    "message": "Package name:",
     "hint":"plugin's package name should start with 'leafer-x-' \nupper-layer application's package name should start with 'leafer-'\n",
     "invalidMessage": "Invalid package.json name"
   },
