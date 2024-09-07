@@ -1,0 +1,32 @@
+{
+  "name": "leafer-project",
+  "version": "0.0.0",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.4.37",
+    "leafer-ui": "1.0.2",
+    "leafer-draw": "1.0.2",
+    "leafer-editor": "1.0.2",
+    "@leafer-in/editor": "^1.0.2",
+    "@leafer-in/text-editor": "^1.0.2",
+    "@leafer-in/view": "^1.0.2",
+    "@leafer-in/scroll": "^1.0.2",
+    "@leafer-in/arrow": "^1.0.2",
+    "@leafer-in/html": "^1.0.2",
+    "@leafer-in/flow": "^1.0.2",
+    "@leafer-in/state": "^1.0.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.1.2",
+    "typescript": "^5.5.3",
+    "vite": "^5.4.1",
+    "vue-tsc": "^2.0.29",
+    "@types/node": "^20.8.7"
+  }
+}

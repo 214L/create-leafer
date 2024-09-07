@@ -171,7 +171,7 @@ export const plugin = new Command()
         )
       fs.writeFileSync(rollupConfigPath, modifiedData)
     }
-    //handle leafer version
+    //handle package.json
     let packagePath = path.resolve(root, 'package.json')
     if (fs.existsSync(packagePath)) {
       const existing = JSON.parse(fs.readFileSync(packagePath, 'utf8'))

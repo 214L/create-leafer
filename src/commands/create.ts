@@ -2,10 +2,8 @@ import * as fs from 'node:fs'
 import * as path from 'node:path'
 import process from 'node:process'
 import prompts from 'prompts'
-import * as banners from '../../utils/banners'
 import { red, gray, bold, lightGreen } from 'kolorist'
 import ora from 'ora'
-import { Command } from 'commander'
 // import { parseArgs } from 'node:util'
 import {
   getBanners,
@@ -22,9 +20,9 @@ import {
 export async function create() {
   const promptMessage = getPrompt()
   let leaferVersion = await getLeaferVersion()
-  let { startingBanner, endingBanner } = getBanners(promptMessage.language)
+  let banners = getBanners(promptMessage.language)
   console.log()
-  console.log(startingBanner)
+  console.log(banners.startingBanner)
   console.log()
 
   let targetDir = ''
@@ -124,5 +122,43 @@ export async function create() {
     path.resolve(root, 'package.json'),
     JSON.stringify(pkg, null, 2)
   )
-  
+
+  //handle template
+  const templateRoot = path.resolve(__dirname, 'template')
+  const render = function render(templateName) {
+    const templateDir = path.resolve(templateRoot, templateName)
+    renderTemplate(templateDir, root)
+  }
+  // Render base template
+  render('leafer/base')
+
+  //handle leafer version
+  let packagePath = path.resolve(root, 'package.json')
+  if (fs.existsSync(packagePath)) {
+    const existing = JSON.parse(fs.readFileSync(packagePath, 'utf8'))
+    existing.dependencies['@leafer-ui/core'] = `^${leaferVersion}`
+    existing.devDependencies['leafer-ui'] = `^${leaferVersion}`
+    existing.name = pkg.name
+    existing.author = pkg.author
+    fs.writeFileSync(packagePath, JSON.stringify(existing, null, 2))
+  }
+  //finish
+  console.log(`\n${promptMessage.infos.done}\n`)
+  if (root !== cwd) {
+    const cdProjectName = path.relative(cwd, root)
+    console.log(
+      `  ${bold(
+        lightGreen(
+          `cd ${
+            cdProjectName.includes(' ') ? `"${cdProjectName}"` : cdProjectName
+          }`
+        )
+      )}`
+    )
+  }
+  console.log(`  ${bold(lightGreen('npm install'))}`)
+  console.log(`  ${bold(lightGreen('npm run start'))}`)
+  console.log()
+  console.log(banners.endingBanner)
+  console.log()
 }
