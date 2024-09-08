@@ -4,7 +4,6 @@ import process from 'node:process'
 import prompts from 'prompts'
 import { red, gray, bold, lightGreen } from 'kolorist'
 import ora from 'ora'
-// import { parseArgs } from 'node:util'
 import {
   getBanners,
   getLeaferVersion,
@@ -14,8 +13,7 @@ import {
   isValidPackageName,
   toValidPackageName,
   renderTemplate,
-  getUser,
-  getGlobalName
+  getUser
 } from '../../utils/index'
 export async function create() {
   const promptMessage = getPrompt()
@@ -130,7 +128,7 @@ export async function create() {
     renderTemplate(templateDir, root)
   }
   // Render base template
-  render('leafer/base')
+  render('leafer/vue')
 
   //handle leafer version
   let packagePath = path.resolve(root, 'package.json')
@@ -138,6 +136,14 @@ export async function create() {
     const existing = JSON.parse(fs.readFileSync(packagePath, 'utf8'))
     existing.name = pkg.name
     existing.author = pkg.author
+    //handle leafer version
+    for (const key in existing.dependencies) {
+      if (Object.prototype.hasOwnProperty.call(existing.dependencies, key)) {
+        if (key !== 'vue') {
+          existing.dependencies[key] = `^${leaferVersion}`;
+        }
+      }
+    }
     fs.writeFileSync(packagePath, JSON.stringify(existing, null, 2))
   }
   //finish
