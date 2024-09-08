@@ -5,7 +5,7 @@ import 'leafer-editor'
 import '@leafer-in/state'
 import { Flow } from '@leafer-in/flow'
 onMounted(() => {
-  const leafer = new App({ view: 'leafer-view', fill: '#242424;', editor: {} })
+  const leafer = new App({ view: 'leafer-view', fill: '#242424', editor: {} })
   let { width = 1080, height = 960 } = leafer
 
   const vue = new Rect({
