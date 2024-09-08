@@ -136,8 +136,6 @@ export async function create() {
   let packagePath = path.resolve(root, 'package.json')
   if (fs.existsSync(packagePath)) {
     const existing = JSON.parse(fs.readFileSync(packagePath, 'utf8'))
-    existing.dependencies['@leafer-ui/core'] = `^${leaferVersion}`
-    existing.devDependencies['leafer-ui'] = `^${leaferVersion}`
     existing.name = pkg.name
     existing.author = pkg.author
     fs.writeFileSync(packagePath, JSON.stringify(existing, null, 2))
