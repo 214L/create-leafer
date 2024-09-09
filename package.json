@@ -1,20 +1,20 @@
 {
   "name": "create-leafer",
   "version": "0.0.1",
-  "main": "index.ts",
   "type": "module",
+  "main": "create-leafer.cjs",
   "bin": {
-    "create-leaferx": "create-leafer.cjs"
+    "create-leafer": "create-leafer.cjs"
   },
   "files": [
     "prompt-message",
-    "create-leaferx.cjs",
+    "create-leafer.cjs",
     "template"
   ],
   "scripts": {
     "test": "vitest",
     "build": "vitest --run && zx ./scripts/build.mjs",
-    "dev": "zx ./scripts/build.mjs && node create-leaferx.cjs",
+    "dev": "zx ./scripts/build.mjs && node create-leafer.cjs",
     "update": "bash ./scripts/update.sh"
   },
   "keywords": [
@@ -25,7 +25,7 @@
   ],
   "author": "214L",
   "license": "MIT",
-  "description": "An easy way to start a LeaferX project.",
+  "description": "An easy way to start a Leafer project.",
   "devDependencies": {
     "@tsconfig/node20": "^20.1.4",
     "@types/eslint": "^9.6.0",

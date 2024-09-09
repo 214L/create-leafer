@@ -28,7 +28,7 @@ await esbuild.build({
   bundle: true,
   entryPoints: ['./src/index.ts'],
   external: ['message/*', 'template/*'],
-  outfile: 'create-leaferx.cjs',
+  outfile: 'create-leafer.cjs',
   format: 'cjs',
   platform: 'node',
   target: 'node14',
@@ -57,16 +57,16 @@ await esbuild.build({
         output: {
           file: 'LICENSE',
           template(allDependencies) {
-            // There's a bug in the plugin that it also includes the `create-leaferx` package itself
+            // There's a bug in the plugin that it also includes the `create-leafer` package itself
             const dependencies = allDependencies.filter(
-              d => d.packageJson.name !== 'create-leaferx'
+              d => d.packageJson.name !== 'create-leafer'
             )
             const licenseText =
-              `# create-leaferx core license\n\n` +
-              `create-leaferx is released under the MIT license:\n\n` +
+              `# create-leafer core license\n\n` +
+              `create-leafer is released under the MIT license:\n\n` +
               CORE_LICENSE +
               `\n## Licenses of bundled dependencies\n\n` +
-              `The published create-leaferx artifact additionally contains code with the following licenses:\n` +
+              `The published create-leafer artifact additionally contains code with the following licenses:\n` +
               [
                 ...new Set(
                   dependencies.map(dependency => dependency.packageJson.license)

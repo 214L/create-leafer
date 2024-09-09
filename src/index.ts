@@ -42,7 +42,7 @@ async function main() {
     }
   }
 
-  // checkForUpdates()
+  checkForUpdates()
 
   const program = new Command()
     .name('leafer')
@@ -53,7 +53,6 @@ async function main() {
       'display the version number'
     )
 
- 
   program.addCommand(init)
   program.addCommand(vueTemplate)
   program.addCommand(plugin)

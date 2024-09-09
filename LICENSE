@@ -1,6 +1,6 @@
-# create-leaferx core license
+# create-leafer core license
 
-create-leaferx is released under the MIT license:
+create-leafer is released under the MIT license:
 
 MIT License
 
@@ -26,7 +26,7 @@ SOFTWARE.
 
 ## Licenses of bundled dependencies
 
-The published create-leaferx artifact additionally contains code with the following licenses:
+The published create-leafer artifact additionally contains code with the following licenses:
 MIT, ISC
 
 ## Bundled dependencies
