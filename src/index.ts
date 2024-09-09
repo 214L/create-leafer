@@ -3,6 +3,7 @@
 import path from 'path'
 import fs from 'fs-extra'
 import { type PackageJson } from 'type-fest'
+import { execSync } from 'child_process'
 import { Command } from 'commander'
 import { create } from './commands/create'
 import { plugin } from './commands/plugin'
@@ -13,6 +14,36 @@ process.on('SIGTERM', () => process.exit(0))
 
 async function main() {
   const packageInfo = fs.readJSONSync(path.join('package.json')) as PackageJson
+
+  function checkForUpdates() {
+    try {
+      const latestVersion = execSync(`npm show ${packageInfo.name} version`)
+        .toString()
+        .trim()
+      if (!packageInfo.version) {
+        throw new Error('Version not found in package.json')
+      }
+      const [latestMajor, latestMinor] = latestVersion.split('.').map(Number)
+      const [currentMajor, currentMinor] = packageInfo.version
+        .split('.')
+        .map(Number)
+
+      if (
+        latestMajor > currentMajor ||
+        (latestMajor === currentMajor && latestMinor > currentMinor)
+      ) {
+        console.log(
+          `create-leafer update available: ${packageInfo.version} → ${latestVersion}`
+        )
+        console.log(`Run npm install -g ${packageInfo.name} to update.`)
+      }
+    } catch (err) {
+      console.error('Error checking for updates:', err)
+    }
+  }
+
+  checkForUpdates()
+
   const program = new Command()
     .name('leafer')
     .description('add leafer dependencies to your project')
@@ -21,7 +52,7 @@ async function main() {
       '-v, --version',
       'display the version number'
     )
-    
+
   program.action(() => {
     create()
   })
