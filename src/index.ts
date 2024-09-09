@@ -5,7 +5,7 @@ import fs from 'fs-extra'
 import { type PackageJson } from 'type-fest'
 import { execSync } from 'child_process'
 import { Command } from 'commander'
-import { create } from './commands/create'
+import { vueTemplate } from './commands/vueTemplate'
 import { plugin } from './commands/plugin'
 import { init } from './commands/init'
 
@@ -42,7 +42,7 @@ async function main() {
     }
   }
 
-  checkForUpdates()
+  // checkForUpdates()
 
   const program = new Command()
     .name('leafer')
@@ -53,10 +53,9 @@ async function main() {
       'display the version number'
     )
 
-  program.action(() => {
-    create()
-  })
+ 
   program.addCommand(init)
+  program.addCommand(vueTemplate)
   program.addCommand(plugin)
   program.parse()
 }
