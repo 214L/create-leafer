@@ -6,7 +6,7 @@ import { Command } from 'commander'
 import { vueTemplate } from './src/commands/vueTemplate'
 import { plugin } from './src/commands/plugin'
 import { init } from './src/commands/init'
-const packageInfo = require('./package.json') as PackageJson;
+import packageInfo from './package.json'
 process.on('SIGINT', () => process.exit(0))
 process.on('SIGTERM', () => process.exit(0))
 
