@@ -13,4 +13,4 @@ pnpm-lock.yaml
 *.tsbuildinfo
 *.log
 
-create-leaferx.cjs
+create-leafer.cjs

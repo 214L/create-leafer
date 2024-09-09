@@ -1,10 +1,14 @@
 {
   "name": "create-leafer",
   "version": "0.0.1",
+  "author": "214L",
+  "license": "MIT",
+  "description": "An easy way to start a Leafer project.",
   "type": "module",
-  "main": "create-leafer.cjs",
+  "main": "src/index.ts",
   "bin": {
-    "create-leafer": "create-leafer.cjs"
+    "create-leafer": "create-leafer.cjs",
+    "leafer": "create-leafer.cjs"
   },
   "files": [
     "prompt-message",
@@ -23,9 +27,6 @@
     "leaferX",
     "cli"
   ],
-  "author": "214L",
-  "license": "MIT",
-  "description": "An easy way to start a Leafer project.",
   "devDependencies": {
     "@tsconfig/node20": "^20.1.4",
     "@types/eslint": "^9.6.0",
@@ -45,10 +46,16 @@
     "vitest": "^2.0.5",
     "zx": "^8.1.4"
   },
+  "dependencies": {
+    "zod": "^3.23.8"
+  },
   "engines": {
     "node": ">= 14.18"
   },
-  "dependencies": {
-    "zod": "^3.23.8"
-  }
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/214L/create-leafer"
+  },
+  "homepage": "https://github.com/214L/create-leafer",
+  "bugs": "https://github.com/214L/create-leafer/issues"
 }

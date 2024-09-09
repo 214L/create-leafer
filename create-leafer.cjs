@@ -15291,6 +15291,7 @@ async function main2() {
       console.error("Error checking for updates:", err);
     }
   }
+  checkForUpdates();
   const program2 = new Command().name("leafer").description("add leafer dependencies to your project").version(
     packageInfo.version || "1.0.0",
     "-v, --version",
