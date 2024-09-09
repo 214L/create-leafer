@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/*! create-leafer v0.0.1 | MIT */
+/*! create-leafer v0.0.2 | MIT */
 var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -11327,7 +11327,7 @@ process.on("SIGINT", () => process.exit(0));
 process.on("SIGTERM", () => process.exit(0));
 async function main2() {
   const packageInfo = import_fs_extra.default.readJSONSync(
-    (0, import_path.resolve)(__dirname, "package.json")
+    (0, import_path.resolve)("./package.json")
   );
   function checkForUpdates() {
     try {
@@ -11348,7 +11348,7 @@ async function main2() {
     }
   }
   checkForUpdates();
-  const program2 = new Command().name("leafer").description("add leafer dependencies to your project").version(
+  const program2 = new Command().name("leafer").description("create different Leafer projects").version(
     packageInfo.version || "1.0.0",
     "-v, --version",
     "display the version number"

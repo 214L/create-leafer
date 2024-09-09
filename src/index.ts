@@ -14,7 +14,7 @@ process.on('SIGTERM', () => process.exit(0))
 
 async function main() {
   const packageInfo = fs.readJSONSync(
-    resolve(__dirname, 'package.json')
+    resolve('./package.json')
   ) as PackageJson
 
   function checkForUpdates() {
