@@ -21,6 +21,7 @@ import {
 
 export const plugin = new Command()
   .name('plugin')
+  .description('Create a LeaferX project')
   //
   .action(async opts => {
     const promptMessage = getPrompt()

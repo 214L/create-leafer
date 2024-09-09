@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import path from 'path'
+import { resolve } from 'path'
 import fs from 'fs-extra'
 import { type PackageJson } from 'type-fest'
 import { execSync } from 'child_process'
@@ -13,7 +13,9 @@ process.on('SIGINT', () => process.exit(0))
 process.on('SIGTERM', () => process.exit(0))
 
 async function main() {
-  const packageInfo = fs.readJSONSync(path.join('package.json')) as PackageJson
+  const packageInfo = fs.readJSONSync(
+    resolve(__dirname, 'package.json')
+  ) as PackageJson
 
   function checkForUpdates() {
     try {
@@ -46,14 +48,14 @@ async function main() {
 
   const program = new Command()
     .name('leafer')
-    .description('add leafer dependencies to your project')
+    .description('create different Leafer projects')
     .version(
       packageInfo.version || '1.0.0',
       '-v, --version',
       'display the version number'
     )
 
-  program.addCommand(init)
+  // program.addCommand(init)
   program.addCommand(vueTemplate)
   program.addCommand(plugin)
   program.parse()

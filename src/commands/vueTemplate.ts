@@ -19,7 +19,7 @@ import {
 
 export const vueTemplate = new Command()
   .name('vue-template')
-  .description('generate a leafer template project with vue')
+  .description('generate a leafer+vue template project powered by vite')
   .option(
     '-c, --cwd <cwd>',
     'the working directory. defaults to the current directory.',
