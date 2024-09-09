@@ -5,7 +5,7 @@
   "license": "MIT",
   "description": "An easy way to start a Leafer project.",
   "type": "module",
-  "main": "src/index.ts",
+  "main": "create-leafer.cjs",
   "bin": {
     "create-leafer": "create-leafer.cjs",
     "leafer": "create-leafer.cjs"
