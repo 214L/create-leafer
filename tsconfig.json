@@ -1,6 +1,6 @@
 {
   "extends": "@tsconfig/node20/tsconfig.json",
-  "include": ["src/**/*", "utils/**/*"],
+  "include": ["src/**/*", "utils/**/*", "index.ts"],
   "compilerOptions": {
     "strict": false,
     "resolveJsonModule": true,

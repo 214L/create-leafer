@@ -26,8 +26,8 @@ SOFTWARE.
 
 await esbuild.build({
   bundle: true,
-  entryPoints: ['./src/index.ts'],
-  external: ['message/*', 'template/*'],
+  entryPoints: ['index.ts'],
+  external: ['prompt-message/*', 'template/*'],
   outfile: 'create-leafer.cjs',
   format: 'cjs',
   platform: 'node',

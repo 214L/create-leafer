@@ -1,22 +1,16 @@
 #!/usr/bin/env node
 
-import { resolve } from 'path'
-import fs from 'fs-extra'
 import { type PackageJson } from 'type-fest'
 import { execSync } from 'child_process'
 import { Command } from 'commander'
-import { vueTemplate } from './commands/vueTemplate'
-import { plugin } from './commands/plugin'
-import { init } from './commands/init'
-
+import { vueTemplate } from './src/commands/vueTemplate'
+import { plugin } from './src/commands/plugin'
+import { init } from './src/commands/init'
+const packageInfo = require('./package.json') as PackageJson;
 process.on('SIGINT', () => process.exit(0))
 process.on('SIGTERM', () => process.exit(0))
 
 async function main() {
-  const packageInfo = fs.readJSONSync(
-    resolve('./package.json')
-  ) as PackageJson
-
   function checkForUpdates() {
     try {
       const latestVersion = execSync(`npm show ${packageInfo.name} version`)
