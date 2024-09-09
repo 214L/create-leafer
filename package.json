@@ -1,6 +1,6 @@
 {
   "name": "create-leafer",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "author": "214L",
   "license": "MIT",
   "description": "An easy way to start a Leafer project.",
@@ -44,9 +44,7 @@
     "prompts": "^2.4.2",
     "type-fest": "^3.8.0",
     "vitest": "^2.0.5",
-    "zx": "^8.1.4"
-  },
-  "dependencies": {
+    "zx": "^8.1.4",
     "zod": "^3.23.8"
   },
   "engines": {

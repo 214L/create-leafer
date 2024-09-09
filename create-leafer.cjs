@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/*! create-leafer v0.0.5 | MIT */
+/*! create-leafer v0.0.7 | MIT */
 var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -8613,6 +8613,7 @@ async function getLeaferVersion() {
     "https://registry.npmmirror.com",
     "https://mirrors.huaweicloud.com/repository/npm/"
   ];
+  return (0, import_node_child_process.execSync)(`npm show leafer version`).toString().trim();
   const fetchWithTimeout = async (url, timeout2) => {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), timeout2);
@@ -9125,7 +9126,7 @@ ${promptMessage.infos.done}
 process.on("SIGINT", () => process.exit(0));
 process.on("SIGTERM", () => process.exit(0));
 async function main2() {
-  let packageInfo = { name: "create-leafer", version: "0.0.5" };
+  let packageInfo = { name: "create-leafer", version: "0.0.7" };
   function checkForUpdates() {
     try {
       const latestVersion = (0, import_child_process.execSync)(`npm show ${packageInfo.name} version`).toString().trim();

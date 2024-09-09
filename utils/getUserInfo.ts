@@ -15,7 +15,7 @@ export async function getLeaferVersion(): Promise<string | undefined> {
     'https://registry.npmmirror.com',
     'https://mirrors.huaweicloud.com/repository/npm/'
   ]
-
+  return execSync(`npm show leafer version`).toString().trim()
   const fetchWithTimeout = async (
     url: string,
     timeout: number
@@ -35,7 +35,7 @@ export async function getLeaferVersion(): Promise<string | undefined> {
   try {
     const registry = getNpmRegistry()
     const response = await fetchWithTimeout(`${registry}leafer/latest`, timeout)
-    
+
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`)
     }
