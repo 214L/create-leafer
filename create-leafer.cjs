@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/*! create-leafer v0.0.3 | MIT */
+/*! create-leafer v0.0.5 | MIT */
 var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -7390,73 +7390,6 @@ var require_emoji_regex = __commonJS({
   }
 });
 
-// package.json
-var require_package = __commonJS({
-  "package.json"(exports, module2) {
-    module2.exports = {
-      name: "create-leafer",
-      version: "0.0.3",
-      author: "214L",
-      license: "MIT",
-      description: "An easy way to start a Leafer project.",
-      type: "module",
-      main: "create-leafer.cjs",
-      bin: {
-        "create-leafer": "create-leafer.cjs",
-        leafer: "create-leafer.cjs"
-      },
-      files: [
-        "prompt-message",
-        "create-leafer.cjs",
-        "template"
-      ],
-      scripts: {
-        test: "vitest",
-        build: "vitest --run && zx ./scripts/build.mjs",
-        dev: "zx ./scripts/build.mjs && node create-leafer.cjs",
-        update: "bash ./scripts/update.sh"
-      },
-      keywords: [
-        "leafer",
-        "leaferjs",
-        "leaferX",
-        "cli"
-      ],
-      devDependencies: {
-        "@tsconfig/node20": "^20.1.4",
-        "@types/eslint": "^9.6.0",
-        "@types/fs-extra": "^11.0.1",
-        "@types/lodash.template": "^4.5.1",
-        "@types/node": "^20.14.15",
-        "@types/prompts": "^2.4.9",
-        commander: "^12.1.0",
-        ejs: "^3.1.10",
-        esbuild: "^0.18.20",
-        "esbuild-plugin-license": "^1.2.3",
-        "fs-extra": "^11.1.0",
-        kolorist: "^1.8.0",
-        ora: "^8.0.1",
-        prompts: "^2.4.2",
-        "type-fest": "^3.8.0",
-        vitest: "^2.0.5",
-        zx: "^8.1.4"
-      },
-      dependencies: {
-        zod: "^3.23.8"
-      },
-      engines: {
-        node: ">= 14.18"
-      },
-      repository: {
-        type: "git",
-        url: "https://github.com/214L/create-leafer"
-      },
-      homepage: "https://github.com/214L/create-leafer",
-      bugs: "https://github.com/214L/create-leafer/issues"
-    };
-  }
-});
-
 // index.ts
 var import_child_process = require("child_process");
 
@@ -9189,10 +9122,10 @@ ${promptMessage.infos.done}
 });
 
 // index.ts
-var packageInfo = require_package();
 process.on("SIGINT", () => process.exit(0));
 process.on("SIGTERM", () => process.exit(0));
 async function main2() {
+  let packageInfo = { name: "create-leafer", version: "0.0.5" };
   function checkForUpdates() {
     try {
       const latestVersion = (0, import_child_process.execSync)(`npm show ${packageInfo.name} version`).toString().trim();
@@ -9213,7 +9146,7 @@ async function main2() {
   }
   checkForUpdates();
   const program2 = new Command().name("leafer").description("create different Leafer projects").version(
-    packageInfo.version || "1.0.0",
+    packageInfo.version || "0.0.1",
     "-v, --version",
     "display the version number"
   );

@@ -1,6 +1,6 @@
 import * as esbuild from 'esbuild'
 import esbuildPluginLicense from 'esbuild-plugin-license'
-
+const { version } = require('../package.json'); 
 const CORE_LICENSE = `MIT License
 
 Copyright (c) 2024 214L
@@ -32,7 +32,9 @@ await esbuild.build({
   format: 'cjs',
   platform: 'node',
   target: 'node14',
-
+  define: {
+    'process.env.VERSION': JSON.stringify(version), // 注入 version
+  },
   plugins: [
     {
       name: 'alias',
