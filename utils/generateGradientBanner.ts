@@ -33,17 +33,17 @@ function generateAnsiGradientText(text, startColor, endColor) {
   return ansiText
 }
 
-// const text = "LeaferJS - The High performance Canvas 2D graphics rendering engine.";
-// const text = 'LeaferJS - 绚丽多彩的 HTML5 Canvas 2D 图形渲染引擎.'
+// const text = "LeaferJS - A user-friendly Canvas rendering engine with an innovative experience.";
+const text = 'LeaferJS - 一款好用的 Canvas 渲染引擎，革新的体验。'
 // const text = '像小树发芽一样不断成长，充满希望和生命力.'
-const text =
-  'Like a small tree sprouting, continuously growing, full of hope and vitality.'
+// const text =
+//   'Like a small tree sprouting, continuously growing, full of hope and vitality.'
 
-// const startColor = 'rgb(50, 205, 121)' // 起始颜色
-// const endColor = 'rgb(250, 243, 57)' // 结束颜色
+const startColor = 'rgb(50, 205, 121)' // 起始颜色
+const endColor = 'rgb(250, 243, 57)' // 结束颜色
 
-const startColor = 'rgb(255, 0, 238)' // 起始颜色
-const endColor = 'rgb(255, 170, 0)' // 结束颜色
+// const startColor = 'rgb(255, 0, 238)' // 起始颜色
+// const endColor = 'rgb(255, 170, 0)' // 结束颜色
 
 const ansiGradientText = generateAnsiGradientText(text, startColor, endColor)
 // fs.writeFileSync('gradient_text.txt', JSON.stringify(ansiGradientText), 'utf8')
