@@ -97,7 +97,7 @@ describe('getLeaferVersion', () => {
     const version = await getLeaferVersion()
 
     expect(version).toBe(defaultVersion)
-    expect(fetch).toHaveBeenCalledTimes(4)
+    expect(fetch).toHaveBeenCalledTimes(3)
   })
 
   it('should handle timeouts and return version from fallback registry', async () => {
@@ -127,6 +127,6 @@ describe('getLeaferVersion', () => {
     console.log('Fetch calls:', mockFetch.mock.calls)
 
     expect(version).toBe('1.0.2')
-    expect(fetch).toHaveBeenCalledTimes(4) // Adjust based on expected number of calls
+    expect(fetch).toHaveBeenCalledTimes(3) // Adjust based on expected number of calls
   }, 10) // Increase timeout for this test
 })

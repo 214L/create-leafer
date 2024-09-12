@@ -7,7 +7,7 @@ interface NpmRegistryResponse {
   [key: string]: any
 }
 
-export async function getLeaferVersion(): Promise<string | undefined> {
+export async function getLeaferVersion(): Promise<string> {
   const defaultVersion = '1.0.2'
   const timeout = 10000 // 10 seconds
   const fallbackRegistries = [
@@ -15,7 +15,20 @@ export async function getLeaferVersion(): Promise<string | undefined> {
     'https://registry.npmmirror.com',
     'https://mirrors.huaweicloud.com/repository/npm/'
   ]
-  return execSync(`npm show leafer version`).toString().trim()
+
+  // Function to get version using npm show
+  const getNpmShowVersion = async (): Promise<string> => {
+    try {
+      return execSync(`npm show leafer version`).toString().trim()
+    } catch (error) {
+      console.error('Failed to fetch Leafer version using npm show:', error)
+      console.error('Now try to fetch version from fallback registries...')
+
+      throw error
+    }
+  }
+
+  // Function to fetch version from registry
   const fetchWithTimeout = async (
     url: string,
     timeout: number
@@ -32,57 +45,33 @@ export async function getLeaferVersion(): Promise<string | undefined> {
     }
   }
 
-  try {
-    const registry = getNpmRegistry()
-    const response = await fetchWithTimeout(`${registry}leafer/latest`, timeout)
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`)
-    }
-
-    const data = (await response.json()) as NpmRegistryResponse
-    return data.version
-  } catch (error) {
-    console.error(
-      'Failed to fetch Leafer version from primary registry:',
-      error
-    )
-
-    // Fallback logic with concurrent requests
-    const fallbackPromises = fallbackRegistries.map(async fallbackRegistry => {
-      try {
-        const fallbackResponse = await fetchWithTimeout(
-          `${fallbackRegistry}leafer/latest`,
-          timeout
-        )
-
-        if (!fallbackResponse.ok) {
-          throw new Error(`HTTP error! status: ${fallbackResponse.status}`)
-        }
-
-        const fallbackData =
-          (await fallbackResponse.json()) as NpmRegistryResponse
-        return fallbackData.version
-      } catch (fallbackError) {
-        console.error(
-          `Failed to fetch Leafer version from fallback registry ${fallbackRegistry}:`,
-          fallbackError
-        )
-        return undefined
+  const fetchVersionFromRegistry = async (registry: string): Promise<string> => {
+    try {
+      const response = await fetchWithTimeout(`${registry}leafer/latest`, timeout)
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
       }
-    })
-
-    // Wait for the first successful response or all failures
-    const firstSuccessful = await Promise.race(fallbackPromises.filter(p => p))
-
-    if (firstSuccessful) {
-      return firstSuccessful
+      const data = (await response.json()) as { version: string }
+      return data.version
+    } catch (error) {
+      console.error(`Failed to fetch Leafer version from ${registry}:`)
+      throw error
     }
+  }
 
-    console.error(
-      'All fallback attempts failed. Process continues with default version:',
-      defaultVersion
-    )
+  try {
+    // Combine both npm show and registry fetches
+    const versionPromises = [
+      getNpmShowVersion(),
+      ...fallbackRegistries.map(registry => fetchVersionFromRegistry(registry))
+    ]
+
+    // Wait for the first successful result
+    const firstSuccessful = await Promise.any(versionPromises)
+
+    return firstSuccessful
+  } catch (error) {
+    console.error('All version fetching methods failed, returning default version:', error)
     return defaultVersion
   }
 }
