@@ -173,7 +173,7 @@ export const vueTemplate = new Command()
       )
     }
     console.log(`  ${bold(lightGreen('npm install'))}`)
-    console.log(`  ${bold(lightGreen('npm run start'))}`)
+    console.log(`  ${bold(lightGreen('npm run dev'))}`)
     console.log()
     console.log(banners.endingBanner)
     console.log()
