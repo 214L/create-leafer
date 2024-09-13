@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/*! create-leafer v0.0.7 | MIT */
+/*! create-leafer v0.0.8 | MIT */
 var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -8544,10 +8544,10 @@ function ora(options2) {
 }
 
 // utils/banners.ts
-var gradientEnStarting = "\x1B[38;2;50;205;121mL\x1B[39m\x1B[38;2;53;206;120me\x1B[39m\x1B[38;2;56;206;119ma\x1B[39m\x1B[38;2;59;207;118mf\x1B[39m\x1B[38;2;62;207;117me\x1B[39m\x1B[38;2;65;208;116mr\x1B[39m\x1B[38;2;68;208;115mJ\x1B[39m\x1B[38;2;71;209;114mS\x1B[39m\x1B[38;2;74;210;113m \x1B[39m\x1B[38;2;77;210;112m-\x1B[39m\x1B[38;2;80;211;111m \x1B[39m\x1B[38;2;83;211;110mT\x1B[39m\x1B[38;2;86;212;110mh\x1B[39m\x1B[38;2;89;212;109me\x1B[39m\x1B[38;2;92;213;108m \x1B[39m\x1B[38;2;95;214;107mH\x1B[39m\x1B[38;2;98;214;106mi\x1B[39m\x1B[38;2;101;215;105mg\x1B[39m\x1B[38;2;104;215;104mh\x1B[39m\x1B[38;2;107;216;103m \x1B[39m\x1B[38;2;110;216;102mp\x1B[39m\x1B[38;2;113;217;101me\x1B[39m\x1B[38;2;116;217;100mr\x1B[39m\x1B[38;2;119;218;99mf\x1B[39m\x1B[38;2;122;219;98mo\x1B[39m\x1B[38;2;125;219;97mr\x1B[39m\x1B[38;2;128;220;96mm\x1B[39m\x1B[38;2;131;220;95ma\x1B[39m\x1B[38;2;134;221;94mn\x1B[39m\x1B[38;2;137;221;93mc\x1B[39m\x1B[38;2;140;222;92me\x1B[39m\x1B[38;2;143;223;91m \x1B[39m\x1B[38;2;146;223;90mC\x1B[39m\x1B[38;2;149;224;89ma\x1B[39m\x1B[38;2;151;224;89mn\x1B[39m\x1B[38;2;154;225;88mv\x1B[39m\x1B[38;2;157;225;87ma\x1B[39m\x1B[38;2;160;226;86ms\x1B[39m\x1B[38;2;163;227;85m \x1B[39m\x1B[38;2;166;227;84m2\x1B[39m\x1B[38;2;169;228;83mD\x1B[39m\x1B[38;2;172;228;82m \x1B[39m\x1B[38;2;175;229;81mg\x1B[39m\x1B[38;2;178;229;80mr\x1B[39m\x1B[38;2;181;230;79ma\x1B[39m\x1B[38;2;184;231;78mp\x1B[39m\x1B[38;2;187;231;77mh\x1B[39m\x1B[38;2;190;232;76mi\x1B[39m\x1B[38;2;193;232;75mc\x1B[39m\x1B[38;2;196;233;74ms\x1B[39m\x1B[38;2;199;233;73m \x1B[39m\x1B[38;2;202;234;72mr\x1B[39m\x1B[38;2;205;234;71me\x1B[39m\x1B[38;2;208;235;70mn\x1B[39m\x1B[38;2;211;236;69md\x1B[39m\x1B[38;2;214;236;68me\x1B[39m\x1B[38;2;217;237;68mr\x1B[39m\x1B[38;2;220;237;67mi\x1B[39m\x1B[38;2;223;238;66mn\x1B[39m\x1B[38;2;226;238;65mg\x1B[39m\x1B[38;2;229;239;64m \x1B[39m\x1B[38;2;232;240;63me\x1B[39m\x1B[38;2;235;240;62mn\x1B[39m\x1B[38;2;238;241;61mg\x1B[39m\x1B[38;2;241;241;60mi\x1B[39m\x1B[38;2;244;242;59mn\x1B[39m\x1B[38;2;247;242;58me\x1B[39m\x1B[38;2;250;243;57m.\x1B[39m";
-var gradientZhStarting = "\x1B[38;2;50;205;121mL\x1B[39m\x1B[38;2;55;206;119me\x1B[39m\x1B[38;2;60;207;118ma\x1B[39m\x1B[38;2;65;208;116mf\x1B[39m\x1B[38;2;71;209;114me\x1B[39m\x1B[38;2;76;210;113mr\x1B[39m\x1B[38;2;81;211;111mJ\x1B[39m\x1B[38;2;86;212;110mS\x1B[39m\x1B[38;2;91;213;108m \x1B[39m\x1B[38;2;96;214;106m-\x1B[39m\x1B[38;2;101;215;105m \x1B[39m\x1B[38;2;106;216;103m\u7EDA\x1B[39m\x1B[38;2;112;217;101m\u4E3D\x1B[39m\x1B[38;2;117;218;100m\u591A\x1B[39m\x1B[38;2;122;219;98m\u5F69\x1B[39m\x1B[38;2;127;220;96m\u7684\x1B[39m\x1B[38;2;132;221;95m \x1B[39m\x1B[38;2;137;222;93mH\x1B[39m\x1B[38;2;142;223;91mT\x1B[39m\x1B[38;2;147;224;90mM\x1B[39m\x1B[38;2;153;224;88mL\x1B[39m\x1B[38;2;158;225;87m5\x1B[39m\x1B[38;2;163;226;85m \x1B[39m\x1B[38;2;168;227;83mC\x1B[39m\x1B[38;2;173;228;82ma\x1B[39m\x1B[38;2;178;229;80mn\x1B[39m\x1B[38;2;183;230;78mv\x1B[39m\x1B[38;2;188;231;77ma\x1B[39m\x1B[38;2;194;232;75ms\x1B[39m\x1B[38;2;199;233;73m \x1B[39m\x1B[38;2;204;234;72m2\x1B[39m\x1B[38;2;209;235;70mD\x1B[39m\x1B[38;2;214;236;68m \x1B[39m\x1B[38;2;219;237;67m\u56FE\x1B[39m\x1B[38;2;224;238;65m\u5F62\x1B[39m\x1B[38;2;229;239;64m\u6E32\x1B[39m\x1B[38;2;235;240;62m\u67D3\x1B[39m\x1B[38;2;240;241;60m\u5F15\x1B[39m\x1B[38;2;245;242;59m\u64CE\x1B[39m\x1B[38;2;250;243;57m.\x1B[39m";
-var defaultEnStarting = "LeaferJS - The High performance Canvas 2D graphics rendering engine.";
-var defaultZhStarting = "LeaferJS - \u7EDA\u4E3D\u591A\u5F69\u7684 HTML5 Canvas 2D \u56FE\u5F62\u6E32\u67D3\u5F15\u64CE.";
+var gradientEnStarting = "\x1B[38;2;50;205;121mL\x1B[39m\x1B[38;2;53;205;120me\x1B[39m\x1B[38;2;55;206;119ma\x1B[39m\x1B[38;2;58;206;119mf\x1B[39m\x1B[38;2;60;207;118me\x1B[39m\x1B[38;2;63;207;117mr\x1B[39m\x1B[38;2;65;208;116mJ\x1B[39m\x1B[38;2;68;208;115mS\x1B[39m\x1B[38;2;70;209;115m \x1B[39m\x1B[38;2;73;209;114m-\x1B[39m\x1B[38;2;75;210;113m \x1B[39m\x1B[38;2;78;210;112mA\x1B[39m\x1B[38;2;80;211;111m \x1B[39m\x1B[38;2;83;211;111mu\x1B[39m\x1B[38;2;85;212;110ms\x1B[39m\x1B[38;2;88;212;109me\x1B[39m\x1B[38;2;90;213;108mr\x1B[39m\x1B[38;2;93;213;107m-\x1B[39m\x1B[38;2;95;214;107mf\x1B[39m\x1B[38;2;98;214;106mr\x1B[39m\x1B[38;2;100;215;105mi\x1B[39m\x1B[38;2;103;215;104me\x1B[39m\x1B[38;2;105;215;103mn\x1B[39m\x1B[38;2;108;216;103md\x1B[39m\x1B[38;2;110;216;102ml\x1B[39m\x1B[38;2;113;217;101my\x1B[39m\x1B[38;2;115;217;100m \x1B[39m\x1B[38;2;118;218;99mC\x1B[39m\x1B[38;2;120;218;99ma\x1B[39m\x1B[38;2;123;219;98mn\x1B[39m\x1B[38;2;125;219;97mv\x1B[39m\x1B[38;2;128;220;96ma\x1B[39m\x1B[38;2;130;220;95ms\x1B[39m\x1B[38;2;133;221;95m \x1B[39m\x1B[38;2;135;221;94mr\x1B[39m\x1B[38;2;138;222;93me\x1B[39m\x1B[38;2;140;222;92mn\x1B[39m\x1B[38;2;143;223;91md\x1B[39m\x1B[38;2;145;223;91me\x1B[39m\x1B[38;2;148;224;90mr\x1B[39m\x1B[38;2;150;224;89mi\x1B[39m\x1B[38;2;153;224;88mn\x1B[39m\x1B[38;2;155;225;87mg\x1B[39m\x1B[38;2;158;225;87m \x1B[39m\x1B[38;2;160;226;86me\x1B[39m\x1B[38;2;163;226;85mn\x1B[39m\x1B[38;2;165;227;84mg\x1B[39m\x1B[38;2;168;227;83mi\x1B[39m\x1B[38;2;170;228;83mn\x1B[39m\x1B[38;2;173;228;82me\x1B[39m\x1B[38;2;175;229;81m \x1B[39m\x1B[38;2;178;229;80mw\x1B[39m\x1B[38;2;180;230;79mi\x1B[39m\x1B[38;2;183;230;79mt\x1B[39m\x1B[38;2;185;231;78mh\x1B[39m\x1B[38;2;188;231;77m \x1B[39m\x1B[38;2;190;232;76ma\x1B[39m\x1B[38;2;193;232;75mn\x1B[39m\x1B[38;2;195;233;75m \x1B[39m\x1B[38;2;198;233;74mi\x1B[39m\x1B[38;2;200;234;73mn\x1B[39m\x1B[38;2;203;234;72mn\x1B[39m\x1B[38;2;205;234;71mo\x1B[39m\x1B[38;2;208;235;71mv\x1B[39m\x1B[38;2;210;235;70ma\x1B[39m\x1B[38;2;213;236;69mt\x1B[39m\x1B[38;2;215;236;68mi\x1B[39m\x1B[38;2;218;237;67mv\x1B[39m\x1B[38;2;220;237;67me\x1B[39m\x1B[38;2;223;238;66m \x1B[39m\x1B[38;2;225;238;65me\x1B[39m\x1B[38;2;228;239;64mx\x1B[39m\x1B[38;2;230;239;63mp\x1B[39m\x1B[38;2;233;240;63me\x1B[39m\x1B[38;2;235;240;62mr\x1B[39m\x1B[38;2;238;241;61mi\x1B[39m\x1B[38;2;240;241;60me\x1B[39m\x1B[38;2;243;242;59mn\x1B[39m\x1B[38;2;245;242;59mc\x1B[39m\x1B[38;2;248;243;58me\x1B[39m\x1B[38;2;250;243;57m.\x1B[39m";
+var gradientZhStarting = "\x1B[38;2;50;205;121mL\x1B[39m\x1B[38;2;56;206;119me\x1B[39m\x1B[38;2;62;207;117ma\x1B[39m\x1B[38;2;68;208;115mf\x1B[39m\x1B[38;2;74;209;113me\x1B[39m\x1B[38;2;79;211;112mr\x1B[39m\x1B[38;2;85;212;110mJ\x1B[39m\x1B[38;2;91;213;108mS\x1B[39m\x1B[38;2;97;214;106m \x1B[39m\x1B[38;2;103;215;104m-\x1B[39m\x1B[38;2;109;216;102m \x1B[39m\x1B[38;2;115;217;100m\u4E00\x1B[39m\x1B[38;2;121;218;98m\u6B3E\x1B[39m\x1B[38;2;126;220;97m\u597D\x1B[39m\x1B[38;2;132;221;95m\u7528\x1B[39m\x1B[38;2;138;222;93m\u7684\x1B[39m\x1B[38;2;144;223;91m \x1B[39m\x1B[38;2;150;224;89mC\x1B[39m\x1B[38;2;156;225;87ma\x1B[39m\x1B[38;2;162;226;85mn\x1B[39m\x1B[38;2;168;227;83mv\x1B[39m\x1B[38;2;174;228;81ma\x1B[39m\x1B[38;2;179;230;80ms\x1B[39m\x1B[38;2;185;231;78m \x1B[39m\x1B[38;2;191;232;76m\u6E32\x1B[39m\x1B[38;2;197;233;74m\u67D3\x1B[39m\x1B[38;2;203;234;72m\u5F15\x1B[39m\x1B[38;2;209;235;70m\u64CE\x1B[39m\x1B[38;2;215;236;68m\uFF0C\x1B[39m\x1B[38;2;221;237;66m\u9769\x1B[39m\x1B[38;2;226;239;65m\u65B0\x1B[39m\x1B[38;2;232;240;63m\u7684\x1B[39m\x1B[38;2;238;241;61m\u4F53\x1B[39m\x1B[38;2;244;242;59m\u9A8C\x1B[39m\x1B[38;2;250;243;57m\u3002\x1B[39m";
+var defaultEnStarting = "LeaferJS - A user-friendly Canvas rendering engine with an innovative experience.";
+var defaultZhStarting = "LeaferJS - \u4E00\u6B3E\u597D\u7528\u7684 Canvas \u6E32\u67D3\u5F15\u64CE\uFF0C\u9769\u65B0\u7684\u4F53\u9A8C\u3002";
 var gradientZhEnding = "\x1B[38;2;255;0;238m\u50CF\x1B[39m\x1B[38;2;255;9;226m\u5C0F\x1B[39m\x1B[38;2;255;17;214m\u6811\x1B[39m\x1B[38;2;255;26;202m\u53D1\x1B[39m\x1B[38;2;255;34;190m\u82BD\x1B[39m\x1B[38;2;255;43;179m\u4E00\x1B[39m\x1B[38;2;255;51;167m\u6837\x1B[39m\x1B[38;2;255;60;155m\u4E0D\x1B[39m\x1B[38;2;255;68;143m\u65AD\x1B[39m\x1B[38;2;255;77;131m\u6210\x1B[39m\x1B[38;2;255;85;119m\u957F\x1B[39m\x1B[38;2;255;94;107m\uFF0C\x1B[39m\x1B[38;2;255;102;95m\u5145\x1B[39m\x1B[38;2;255;111;83m\u6EE1\x1B[39m\x1B[38;2;255;119;71m\u5E0C\x1B[39m\x1B[38;2;255;128;60m\u671B\x1B[39m\x1B[38;2;255;136;48m\u548C\x1B[39m\x1B[38;2;255;145;36m\u751F\x1B[39m\x1B[38;2;255;153;24m\u547D\x1B[39m\x1B[38;2;255;162;12m\u529B\x1B[39m\x1B[38;2;255;170;0m.\x1B[39m";
 var gradientEnEndingBanner = "\x1B[38;2;255;0;238mL\x1B[39m\x1B[38;2;255;2;235mi\x1B[39m\x1B[38;2;255;4;232mk\x1B[39m\x1B[38;2;255;7;229me\x1B[39m\x1B[38;2;255;9;225m \x1B[39m\x1B[38;2;255;11;222ma\x1B[39m\x1B[38;2;255;13;219m \x1B[39m\x1B[38;2;255;16;216ms\x1B[39m\x1B[38;2;255;18;213mm\x1B[39m\x1B[38;2;255;20;210ma\x1B[39m\x1B[38;2;255;22;207ml\x1B[39m\x1B[38;2;255;25;204ml\x1B[39m\x1B[38;2;255;27;200m \x1B[39m\x1B[38;2;255;29;197mt\x1B[39m\x1B[38;2;255;31;194mr\x1B[39m\x1B[38;2;255;34;191me\x1B[39m\x1B[38;2;255;36;188me\x1B[39m\x1B[38;2;255;38;185m \x1B[39m\x1B[38;2;255;40;182ms\x1B[39m\x1B[38;2;255;43;179mp\x1B[39m\x1B[38;2;255;45;175mr\x1B[39m\x1B[38;2;255;47;172mo\x1B[39m\x1B[38;2;255;49;169mu\x1B[39m\x1B[38;2;255;51;166mt\x1B[39m\x1B[38;2;255;54;163mi\x1B[39m\x1B[38;2;255;56;160mn\x1B[39m\x1B[38;2;255;58;157mg\x1B[39m\x1B[38;2;255;60;153m,\x1B[39m\x1B[38;2;255;63;150m \x1B[39m\x1B[38;2;255;65;147mc\x1B[39m\x1B[38;2;255;67;144mo\x1B[39m\x1B[38;2;255;69;141mn\x1B[39m\x1B[38;2;255;72;138mt\x1B[39m\x1B[38;2;255;74;135mi\x1B[39m\x1B[38;2;255;76;132mn\x1B[39m\x1B[38;2;255;78;128mu\x1B[39m\x1B[38;2;255;81;125mo\x1B[39m\x1B[38;2;255;83;122mu\x1B[39m\x1B[38;2;255;85;119ms\x1B[39m\x1B[38;2;255;87;116ml\x1B[39m\x1B[38;2;255;89;113my\x1B[39m\x1B[38;2;255;92;110m \x1B[39m\x1B[38;2;255;94;106mg\x1B[39m\x1B[38;2;255;96;103mr\x1B[39m\x1B[38;2;255;98;100mo\x1B[39m\x1B[38;2;255;101;97mw\x1B[39m\x1B[38;2;255;103;94mi\x1B[39m\x1B[38;2;255;105;91mn\x1B[39m\x1B[38;2;255;107;88mg\x1B[39m\x1B[38;2;255;110;85m,\x1B[39m\x1B[38;2;255;112;81m \x1B[39m\x1B[38;2;255;114;78mf\x1B[39m\x1B[38;2;255;116;75mu\x1B[39m\x1B[38;2;255;119;72ml\x1B[39m\x1B[38;2;255;121;69ml\x1B[39m\x1B[38;2;255;123;66m \x1B[39m\x1B[38;2;255;125;63mo\x1B[39m\x1B[38;2;255;128;60mf\x1B[39m\x1B[38;2;255;130;56m \x1B[39m\x1B[38;2;255;132;53mh\x1B[39m\x1B[38;2;255;134;50mo\x1B[39m\x1B[38;2;255;136;47mp\x1B[39m\x1B[38;2;255;139;44me\x1B[39m\x1B[38;2;255;141;41m \x1B[39m\x1B[38;2;255;143;38ma\x1B[39m\x1B[38;2;255;145;34mn\x1B[39m\x1B[38;2;255;148;31md\x1B[39m\x1B[38;2;255;150;28m \x1B[39m\x1B[38;2;255;152;25mv\x1B[39m\x1B[38;2;255;154;22mi\x1B[39m\x1B[38;2;255;157;19mt\x1B[39m\x1B[38;2;255;159;16ma\x1B[39m\x1B[38;2;255;161;13ml\x1B[39m\x1B[38;2;255;163;9mi\x1B[39m\x1B[38;2;255;166;6mt\x1B[39m\x1B[38;2;255;168;3my\x1B[39m\x1B[38;2;255;170;0m.\x1B[39m";
 var defaultEnEnding = "Like a small tree sprouting, continuously growing, full of hope and vitality.";
@@ -8596,9 +8596,9 @@ function generateAnsiGradientText(text2, startColor2, endColor2) {
   }
   return ansiText;
 }
-var text = "Like a small tree sprouting, continuously growing, full of hope and vitality.";
-var startColor = "rgb(255, 0, 238)";
-var endColor = "rgb(255, 170, 0)";
+var text = "LeaferJS - \u4E00\u6B3E\u597D\u7528\u7684 Canvas \u6E32\u67D3\u5F15\u64CE\uFF0C\u9769\u65B0\u7684\u4F53\u9A8C\u3002";
+var startColor = "rgb(50, 205, 121)";
+var endColor = "rgb(250, 243, 57)";
 var ansiGradientText = generateAnsiGradientText(text, startColor, endColor);
 
 // utils/getUserInfo.ts
@@ -8613,7 +8613,14 @@ async function getLeaferVersion() {
     "https://registry.npmmirror.com",
     "https://mirrors.huaweicloud.com/repository/npm/"
   ];
-  return (0, import_node_child_process.execSync)(`npm show leafer version`).toString().trim();
+  const getNpmShowVersion = async () => {
+    try {
+      return (0, import_node_child_process.execSync)(`npm show leafer version`).toString().trim();
+    } catch (error) {
+      console.error("Failed to fetch Leafer version using npm show:", error);
+      throw error;
+    }
+  };
   const fetchWithTimeout = async (url, timeout2) => {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), timeout2);
@@ -8626,52 +8633,29 @@ async function getLeaferVersion() {
       throw error;
     }
   };
-  try {
-    const registry = getNpmRegistry();
-    const response = await fetchWithTimeout(`${registry}leafer/latest`, timeout);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const data = await response.json();
-    return data.version;
-  } catch (error) {
-    console.error(
-      "Failed to fetch Leafer version from primary registry:",
-      error
-    );
-    const fallbackPromises = fallbackRegistries.map(async (fallbackRegistry) => {
-      try {
-        const fallbackResponse = await fetchWithTimeout(
-          `${fallbackRegistry}leafer/latest`,
-          timeout
-        );
-        if (!fallbackResponse.ok) {
-          throw new Error(`HTTP error! status: ${fallbackResponse.status}`);
-        }
-        const fallbackData = await fallbackResponse.json();
-        return fallbackData.version;
-      } catch (fallbackError) {
-        console.error(
-          `Failed to fetch Leafer version from fallback registry ${fallbackRegistry}:`,
-          fallbackError
-        );
-        return void 0;
+  const fetchVersionFromRegistry = async (registry) => {
+    try {
+      const response = await fetchWithTimeout(`${registry}leafer/latest`, timeout);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-    });
-    const firstSuccessful = await Promise.race(fallbackPromises.filter((p) => p));
-    if (firstSuccessful) {
-      return firstSuccessful;
+      const data = await response.json();
+      return data.version;
+    } catch (error) {
+      throw error;
     }
-    console.error(
-      "All fallback attempts failed. Process continues with default version:",
-      defaultVersion
-    );
+  };
+  try {
+    const versionPromises = [
+      getNpmShowVersion(),
+      ...fallbackRegistries.map((registry) => fetchVersionFromRegistry(registry))
+    ];
+    const firstSuccessful = await Promise.any(versionPromises);
+    return firstSuccessful;
+  } catch (error) {
+    console.error("All version fetching methods failed, returning default version:", error);
     return defaultVersion;
   }
-}
-function getNpmRegistry() {
-  const registry = process.env.npm_config_registry;
-  return registry || "https://registry.npmjs.org/";
 }
 function getPrompt() {
   const shellLocale = process.env.LC_ALL || process.env.LC_MESSAGES || process.env.LANG || Intl.DateTimeFormat().resolvedOptions().locale || "en-US";
@@ -9126,7 +9110,7 @@ ${promptMessage.infos.done}
 process.on("SIGINT", () => process.exit(0));
 process.on("SIGTERM", () => process.exit(0));
 async function main2() {
-  let packageInfo = { name: "create-leafer", version: "0.0.7" };
+  let packageInfo = { name: "create-leafer", version: "0.0.8" };
   function checkForUpdates() {
     try {
       const latestVersion = (0, import_child_process.execSync)(`npm show ${packageInfo.name} version`).toString().trim();
