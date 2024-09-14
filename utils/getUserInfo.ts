@@ -1,7 +1,8 @@
 import * as fs from 'node:fs'
 import * as path from 'node:path'
 import { execSync } from 'node:child_process'
-
+import { detect } from 'package-manager-detector/detect'
+import { DetectResult } from 'package-manager-detector'
 interface NpmRegistryResponse {
   version: string
   [key: string]: any
@@ -45,9 +46,14 @@ export async function getLeaferVersion(): Promise<string> {
     }
   }
 
-  const fetchVersionFromRegistry = async (registry: string): Promise<string> => {
+  const fetchVersionFromRegistry = async (
+    registry: string
+  ): Promise<string> => {
     try {
-      const response = await fetchWithTimeout(`${registry}leafer/latest`, timeout)
+      const response = await fetchWithTimeout(
+        `${registry}leafer/latest`,
+        timeout
+      )
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`)
       }
@@ -71,7 +77,10 @@ export async function getLeaferVersion(): Promise<string> {
 
     return firstSuccessful
   } catch (error) {
-    console.error('All version fetching methods failed, returning default version:', error)
+    console.error(
+      'All version fetching methods failed, returning default version:',
+      error
+    )
     return defaultVersion
   }
 }
@@ -133,4 +142,22 @@ function getGitEmailAddress() {
   } catch (err) {
     return null
   }
+}
+
+/**
+ * @description get package manager
+ * @param targetDir target directory
+ * @returns  package manager agent
+ */
+export async function getPackageManager(
+  targetDir: string
+): Promise<'yarn' | 'pnpm' | 'bun' | 'npm'> {
+  const { agent } = await detect({ cwd: targetDir })
+  console.log(agent)
+
+  if (agent === 'yarn@berry') return 'yarn'
+  if (agent === 'pnpm@6') return 'pnpm'
+  if (agent === 'bun') return 'bun'
+
+  return agent ?? 'npm'
 }

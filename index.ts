@@ -38,7 +38,7 @@ async function main() {
   }
 
   checkForUpdates()
-
+  
   const program = new Command()
     .name('leafer')
     .description('create different Leafer projects')
@@ -48,7 +48,7 @@ async function main() {
       'display the version number'
     )
 
-  // program.addCommand(init)
+  program.addCommand(init)
   program.addCommand(vueTemplate)
   program.addCommand(plugin)
   program.parse()
