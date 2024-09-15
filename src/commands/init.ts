@@ -2,8 +2,14 @@ import path from 'node:path'
 import { Command } from 'commander'
 import { z } from 'zod'
 import fs, { existsSync } from 'fs-extra'
-import { red } from 'kolorist'
-import { getPackageManager } from '../../utils/index'
+import prompts from 'prompts'
+import { red, lightGreen, bold } from 'kolorist'
+import {
+  getPrompt,
+  getPackageManager,
+  getLeaferPackageInfo,
+  findLeaferPackage
+} from '../../utils/index'
 const initOptionsSchema = z.object({
   cwd: z.string(),
   yes: z.boolean(),
@@ -21,9 +27,9 @@ export const init = new Command()
   )
   .action(async opts => {
     try {
-      
       const options = initOptionsSchema.parse(opts)
       const cwd = path.resolve(options.cwd)
+      const promptMessage = getPrompt()
 
       //check cwd exist
       if (!existsSync(cwd)) {
@@ -34,7 +40,7 @@ export const init = new Command()
       //check package.json exist
       if (!fs.existsSync(path.resolve(cwd, 'package.json'))) {
         console.log(
-          red(
+          lightGreen(
             `No package.json file found in ${cwd}. Please initialize your project first.`
           )
         )
@@ -43,12 +49,90 @@ export const init = new Command()
       //get package manager
       const agent = await getPackageManager(cwd)
       //check existing leafer package
+      const existingLeaferPackage = await findLeaferPackage(cwd)
 
-      //prompt choose leafer plugin
+      //if leafer exist tell user use add instead of init
+      if (existingLeaferPackage.length) {
+        console.log(
+          red(
+            `The project already has leafer installed. Please use ${lightGreen(
+              bold('add')
+            )} command instead of ${lightGreen(bold('init'))} command.`
+          )
+        )
+        process.exit(1)
+      }
+      //get leafer package enum
+      const { LeaferBasePackage, LeaferInPackage } =
+        await getLeaferPackageInfo()
+      //prompt choose run platform
+      let result: {
+        supportPlatforms?: string
+      } = {}
+      try {
+        result = await prompts(
+          [
+            {
+              name: 'supportPlatforms',
+              type: 'select',
+              message: promptMessage.supportPlatform.message,
+              choices: [
+                { title: 'web', value: 'web' },
+                { title: 'worker', value: 'worker' },
+                { title: 'node', value: 'node' },
+                { title: 'miniapp', value: 'miniapp' }
+              ]
+            },
+            {
+              name: 'sceneSelect',
+              type: 'select',
+              message: promptMessage.sceneSelect.message,
+              choices: promptMessage.sceneSelect.choices
+            },
+            {
+              name: 'leaferInSelect',
+              type: 'multiselect',
+              message: promptMessage.leaferInSelect.message,
+              choices: prev =>
+                handleChoices(prev, promptMessage.leaferInSelect.choices),
+              hint: promptMessage.leaferInSelect.hint,
+              instructions: false,
+              min: 0,
+              max: 10
+            }
+          ],
+          {
+            onCancel: () => {
+              throw new Error(
+                red('✖') + ` ${promptMessage.errors.operationCancelled}`
+              )
+            }
+          }
+        )
+      } catch (cancelled) {
+        console.log('cancelled', cancelled)
+        process.exit(1)
+      }
+      //prompt choose scene
+      //prompt choose plugin
+      //handle dependencies
 
       //write file
 
       //prompt start project
-    } catch (error) {
+    } catch (error) {}
+  })
+function handleChoices(prev, choices) {
+  let result = []
+  let initChosen = []
+  if (prev === 'editor') {
+    initChosen = ['editor', 'view', 'scroll', 'arrow', 'html']
+  }
+  choices.forEach(item => {
+    if (initChosen.includes(item)) {
+      item.disabled = true
+      item.selected = true
     }
   })
+  return result
+}

@@ -38,15 +38,15 @@
     "ejs": "^3.1.10",
     "esbuild": "^0.18.20",
     "esbuild-plugin-license": "^1.2.3",
-    "type-fest": "^3.8.0",
-    "vitest": "^2.0.5",
-    "zod": "^3.23.8",
-    "zx": "^8.1.4",
-    "package-manager-detector": "^0.2.0",
     "fs-extra": "^11.1.0",
     "kolorist": "^1.8.0",
     "ora": "^8.0.1",
-    "prompts": "^2.4.2"
+    "package-manager-detector": "^0.2.0",
+    "prompts": "^2.4.2",
+    "type-fest": "^3.8.0",
+    "vitest": "^2.0.5",
+    "zod": "^3.23.8",
+    "zx": "^8.1.4"
   },
   "engines": {
     "node": ">= 14.18"
