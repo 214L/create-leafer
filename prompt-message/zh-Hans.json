@@ -1,11 +1,85 @@
 {
-  "language":"zh",
+  "language": "zh",
   "projectName": {
     "message": "请输入项目名称："
+  },
+  "supportPlatform": {
+    "message": "请选择你的项目运行的平台"
   },
   "supportPlatforms": {
     "message": "请选择插件将支持的平台",
     "hint": "- 按下空格键选择，回车键提交"
+  },
+  "sceneSelect": {
+    "message": "选择一个场景包以快速开始项目，或者跳过以进行详细选择。",
+    "choices": [
+      {
+        "title": "跳过",
+        "value": "skip",
+        "description": "跳过场景选择"
+      },
+      {
+        "title": "editor",
+        "value": "editor",
+        "description": "基于 leafer-ui ，集成多个插件，适用于在线图形编辑的场景。"
+      },
+      {
+        "title": "draw",
+        "value": "draw",
+        "description": "leafer-ui 的简化版本，适用于纯绘图场景。"
+      }
+    ]
+  },
+  "leaferInSelect": {
+    "message": "选择你想要的官方功能插件",
+    "hint": "- 按下空格键选择，回车键提交",
+    "choices": [
+      {
+        "title": "interface",
+        "value": "interface",
+        "description": "TypeScript interface of official feature plugins"
+      },
+      {
+        "title": "editor",
+        "value": "editor",
+        "description": ""
+      },
+      {
+        "title": "html",
+        "value": "html",
+        "description": ""
+      },
+      {
+        "title": "scroll",
+        "value": "scroll",
+        "description": ""
+      },
+      {
+        "title": "arrow",
+        "value": "arrow",
+        "description": ""
+      },
+      {
+        "title": "view",
+        "value": "view",
+        "description": ""
+      },
+      {
+        "title": "state",
+        "value": "state",
+        "description": ""
+      },
+      {
+        "title": "text-editor",
+        "value": "text-editor",
+        "description": ""
+      },
+      {
+        "title": "flow",
+        "value": "flow",
+        "description": ""
+      }
+    ]
   },
   "shouldOverwrite": {
     "dirForPrompts": {

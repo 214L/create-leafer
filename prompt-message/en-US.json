@@ -1,11 +1,85 @@
 {
-  "language":"en",
+  "language": "en",
   "projectName": {
     "message": "Project name:"
   },
-  "supportPlatforms":{
+  "supportPlatform": {
+    "message": "Please select the platform that your project will support."
+  },
+  "supportPlatforms": {
     "message": "Please select the platform that your plugin will support.",
-    "hint":"- Space to select. Return to submit"
+    "hint": "- Space to select. Return to submit"
+  },
+  "sceneSelect": {
+    "message": "Choose a scene package to quickly start the project, or skip to make detailed selections.",
+    "choices": [
+      {
+        "title": "skip",
+        "value": "skip",
+        "description": "Skip scene selection"
+      },
+      {
+        "title": "editor",
+        "value": "editor",
+        "description": "Based on leafer-ui ,suitable for online graphic editing scenarios."
+      },
+      {
+        "title": "draw",
+        "value": "draw",
+        "description": "A simplified leafer-ui version,more suitable for pure drawing scenarios."
+      }
+    ]
+  },
+  "leaferInSelect": {
+    "message": "Choose the official feature plugins you want.",
+    "hint": "- Space to select. Return to submit",
+    "choices": [
+      {
+        "title": "interface",
+        "value": "interface",
+        "description": "TypeScript interface of official feature plugins"
+      },
+      {
+        "title": "editor",
+        "value": "editor",
+        "description": ""
+      },
+      {
+        "title": "html",
+        "value": "html",
+        "description": ""
+      },
+      {
+        "title": "scroll",
+        "value": "scroll",
+        "description": ""
+      },
+      {
+        "title": "arrow",
+        "value": "arrow",
+        "description": ""
+      },
+      {
+        "title": "view",
+        "value": "view",
+        "description": ""
+      },
+      {
+        "title": "state",
+        "value": "state",
+        "description": ""
+      },
+      {
+        "title": "text-editor",
+        "value": "text-editor",
+        "description": ""
+      },
+      {
+        "title": "flow",
+        "value": "flow",
+        "description": ""
+      }
+    ]
   },
   "shouldOverwrite": {
     "dirForPrompts": {
@@ -20,7 +94,7 @@
   },
   "pluginPackageName": {
     "message": "Package name:",
-    "hint":"plugin's package name should start with 'leafer-x-' \nupper-layer application's package name should start with 'leafer-'\n",
+    "hint": "plugin's package name should start with 'leafer-x-' \nupper-layer application's package name should start with 'leafer-'\n",
     "invalidMessage": "Invalid package.json name"
   },
   "errors": {
