@@ -94,7 +94,7 @@ export const init = new Command()
               type: 'multiselect',
               message: promptMessage.leaferInSelect.message,
               choices: prev =>
-                handleChoices(prev, promptMessage.leaferInSelect.choices),
+                handlePluginChoices(prev, promptMessage.leaferInSelect.choices),
               hint: promptMessage.leaferInSelect.hint,
               instructions: false,
               min: 0,
@@ -113,8 +113,7 @@ export const init = new Command()
         console.log('cancelled', cancelled)
         process.exit(1)
       }
-      //prompt choose scene
-      //prompt choose plugin
+      console.log(result)
       //handle dependencies
 
       //write file
@@ -122,17 +121,14 @@ export const init = new Command()
       //prompt start project
     } catch (error) {}
   })
-function handleChoices(prev, choices) {
-  let result = []
-  let initChosen = []
+function handlePluginChoices(prev, choices) {
   if (prev === 'editor') {
-    initChosen = ['editor', 'view', 'scroll', 'arrow', 'html']
+    let initChosen = ['editor', 'view', 'scroll', 'arrow', 'html']
+    choices.forEach(item => {
+      if (initChosen.includes(item.value)) {
+        item.selected = true
+      }
+    })
   }
-  choices.forEach(item => {
-    if (initChosen.includes(item)) {
-      item.disabled = true
-      item.selected = true
-    }
-  })
-  return result
+  return choices
 }
