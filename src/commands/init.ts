@@ -8,7 +8,8 @@ import {
   getPrompt,
   getPackageManager,
   getLeaferPackageInfo,
-  findLeaferPackage
+  findLeaferPackage,
+  getLeaferVersion
 } from '../../utils/index'
 const initOptionsSchema = z.object({
   cwd: z.string(),
@@ -68,6 +69,8 @@ export const init = new Command()
       //prompt choose run platform
       let result: {
         supportPlatforms?: string
+        sceneSelect?: string
+        leaferInSelect?: string[]
       } = {}
       try {
         result = await prompts(
@@ -115,10 +118,63 @@ export const init = new Command()
       }
       console.log(result)
       //handle dependencies
-
+      let dependencies = []
+      let devDependencies = []
+      let excludePlugin = []
+      if (result.sceneSelect === 'editor') {
+        dependencies.push(
+          result.supportPlatforms === 'web'
+            ? `leafer-editor`
+            : `@leafer-editor/${result.supportPlatforms}`
+        )
+        excludePlugin = ['editor', 'view', 'scroll', 'arrow', 'html']
+      } else if (result.sceneSelect === 'draw') {
+        dependencies.push(
+          result.supportPlatforms === 'web'
+            ? `leafer-draw`
+            : `@leafer-draw/${result.supportPlatforms}`
+        )
+      } else {
+        dependencies.push(
+          result.supportPlatforms === 'web'
+            ? `leafer-ui`
+            : `@leafer-ui/${result.supportPlatforms}`
+        )
+      }
+      //exclude plugin
+      if (result.leaferInSelect.length) {
+        result.leaferInSelect
+          .filter(item => !excludePlugin.includes(item))
+          .map(item => {
+            if (item === 'interface') {
+              devDependencies.push(`@leafer-in/${item}`)
+            } else {
+              dependencies.push(`@leafer-in/${item}`)
+            }
+          })
+      }
+      console.log(dependencies)
+      console.log(devDependencies)
+      let leaferVersion = await getLeaferVersion()
       //write file
-
+      let packagePath = path.resolve(cwd, 'package.json')
+      const existing = JSON.parse(fs.readFileSync(packagePath, 'utf8'))
+      if (dependencies.length) {
+        existing.dependencies = dependencies.reduce((acc, cur) => {
+          acc[cur] = `^${leaferVersion}`
+          return acc
+        }, existing.dependencies || {})
+      }
+      if (devDependencies.length) {
+        existing.devDependencies = devDependencies.reduce((acc, cur) => {
+          acc[cur] = `^${leaferVersion}`
+          return acc
+        }, existing.devDependencies || {})
+      }
+      fs.writeFileSync(packagePath, JSON.stringify(existing, null, 2))
+      
       //prompt start project
+
     } catch (error) {}
   })
 function handlePluginChoices(prev, choices) {
