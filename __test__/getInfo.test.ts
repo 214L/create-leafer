@@ -1,7 +1,6 @@
 /// <reference types="vitest" />
 import { describe, it, expect, vi, beforeEach, Mock } from 'vitest'
-import { getLeaferVersion, getNpmRegistry } from '../utils/getUserInfo'
-
+import { getLeaferVersion, getNpmRegistry } from '../utils/index'
 global.fetch = vi.fn()
 
 vi.mock('./leafer', () => ({

@@ -1,6 +1,7 @@
 import { execSync } from 'node:child_process'
 import path from 'node:path'
 import fs from 'node:fs'
+import { bold, lightGreen, lightYellow } from 'kolorist'
 const FallbackRegistries = [
   'https://registry.npmjs.org/',
   'https://registry.npmmirror.com',
@@ -22,6 +23,7 @@ interface SearchResponse {
 }
 
 export async function getLeaferVersion(): Promise<string> {
+  console.log(bold(lightGreen('Fetching Leafer version...')))
   const defaultVersion = '1.0.2'
   const timeout = 10000 // 10 seconds
 
@@ -30,12 +32,11 @@ export async function getLeaferVersion(): Promise<string> {
     try {
       return execSync(`npm show leafer version`).toString().trim()
     } catch (error) {
-      console.error('Failed to fetch Leafer version using npm show:', error)
-      console.error('Now try to fetch version from fallback registries...')
-
-      throw error
+      throw new Error('npm show failed')
     }
   }
+
+  // Function to fetch version from fallback registries
   const fetchVersionFromRegistry = async (
     registry: string
   ): Promise<string> => {
@@ -50,8 +51,7 @@ export async function getLeaferVersion(): Promise<string> {
       const data = (await response.json()) as { version: string }
       return data.version
     } catch (error) {
-      console.error(`Failed to fetch Leafer version from ${registry}:`)
-      throw error
+      throw new Error(`Fetch from ${registry} failed`)
     }
   }
 
@@ -62,18 +62,24 @@ export async function getLeaferVersion(): Promise<string> {
       ...FallbackRegistries.map(registry => fetchVersionFromRegistry(registry))
     ]
 
-    // Wait for the first successful result
+    // Wait for the first successful result using Promise.any
     const firstSuccessful = await Promise.any(versionPromises)
-
     return firstSuccessful
   } catch (error) {
+    // Only when all promises fail, log the error and return default version
     console.error(
-      'All version fetching methods failed, returning default version:',
-      error
+      console.log(
+        bold(
+          lightYellow(
+            `All leafer version fetching methods failed. Returning default version : ${defaultVersion}. `
+          )
+        )
+      )
     )
     return defaultVersion
   }
 }
+
 export async function findLeaferPackage(cwd: string) {
   let packagePath = path.resolve(cwd, 'package.json')
   if (fs.existsSync(packagePath)) {
