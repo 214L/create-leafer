@@ -116,7 +116,6 @@ export const init = new Command()
         console.log('cancelled', cancelled)
         process.exit(1)
       }
-      console.log(result)
       //handle dependencies
       let dependencies = []
       let devDependencies = []
@@ -153,8 +152,6 @@ export const init = new Command()
             }
           })
       }
-      console.log(dependencies)
-      console.log(devDependencies)
       let leaferVersion = await getLeaferVersion()
       //write file
       let packagePath = path.resolve(cwd, 'package.json')

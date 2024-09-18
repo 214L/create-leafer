@@ -71,7 +71,7 @@ export async function getLeaferVersion(): Promise<string> {
       console.log(
         bold(
           lightYellow(
-            `All leafer version fetching methods failed. Returning default version : ${defaultVersion}. `
+            `All leafer version fetching methods failed. Use default version : ${defaultVersion}. `
           )
         )
       )
