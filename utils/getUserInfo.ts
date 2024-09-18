@@ -78,3 +78,23 @@ export async function getPackageManager(
 
   return agent ?? 'npm'
 }
+
+export function getCommand(
+  agent: string,
+  scriptName: string,
+  args?: string
+) {
+  if (scriptName === 'install') {
+    return agent === 'yarn' ? 'yarn' : `${agent} install`
+  }
+
+  if (args) {
+    return agent === 'npm'
+      ? `npm run ${scriptName} -- ${args}`
+      : `${agent} ${scriptName} ${args}`
+  } else {
+    return agent === 'npm'
+      ? `npm run ${scriptName}`
+      : `${agent} ${scriptName}`
+  }
+}

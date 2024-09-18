@@ -3,13 +3,14 @@ import { Command } from 'commander'
 import { z } from 'zod'
 import fs, { existsSync } from 'fs-extra'
 import prompts from 'prompts'
-import { red, lightGreen, bold } from 'kolorist'
+import { red, lightGreen, bold, green } from 'kolorist'
 import {
   getPrompt,
   getPackageManager,
   getLeaferPackageInfo,
   findLeaferPackage,
-  getLeaferVersion
+  getLeaferVersion,
+  getCommand
 } from '../../utils/index'
 const initOptionsSchema = z.object({
   cwd: z.string(),
@@ -37,7 +38,6 @@ export const init = new Command()
         console.log(red(`The path ${cwd} does not exist. Please try again.`))
         process.exit(1)
       }
-
       //check package.json exist
       if (!fs.existsSync(path.resolve(cwd, 'package.json'))) {
         console.log(
@@ -46,9 +46,9 @@ export const init = new Command()
           )
         )
       }
-
       //get package manager
       const agent = await getPackageManager(cwd)
+
       //check existing leafer package
       const existingLeaferPackage = await findLeaferPackage(cwd)
 
@@ -169,9 +169,26 @@ export const init = new Command()
         }, existing.devDependencies || {})
       }
       fs.writeFileSync(packagePath, JSON.stringify(existing, null, 2))
-      
-      //prompt start project
 
+      //prompt start project
+      console.log(`\n${promptMessage.infos.done}\n`)
+      const root = process.cwd()
+
+      if (root !== cwd) {
+        const cdProjectName = path.relative(root, cwd)
+        console.log(cdProjectName)
+
+        console.log(
+          `  ${bold(
+            `cd ${
+              cdProjectName.includes(' ') ? `"${cdProjectName}"` : cdProjectName
+            }`
+          )}`
+        )
+      }
+      console.log(`  ${bold(green(getCommand(agent, 'install')))}`)
+      console.log(`  ${bold(green(getCommand(agent, 'dev')))}`)
+      console.log()
     } catch (error) {}
   })
 function handlePluginChoices(prev, choices) {

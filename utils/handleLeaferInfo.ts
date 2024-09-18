@@ -98,6 +98,7 @@ export async function findLeaferPackage(cwd: string) {
     )
     return leaferDependencies
   }
+  return []
 }
 const LeaferBasePackage = {
   'leafer-ui': {},
