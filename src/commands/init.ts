@@ -189,7 +189,10 @@ export const init = new Command()
       console.log(`  ${bold(green(getCommand(agent, 'install')))}`)
       console.log(`  ${bold(green(getCommand(agent, 'dev')))}`)
       console.log()
-    } catch (error) {}
+    } catch (error) {
+      console.error(red('An error occurred during the initialization process:'), error)
+      process.exit(1)
+    }
   })
 function handlePluginChoices(prev, choices) {
   if (prev === 'editor') {
