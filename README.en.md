@@ -1,29 +1,42 @@
 ### create-leafer
-English | [简体中文](./README.md)
 
-create-leafer is a cli tool that helps you to create project about Leafer.
-#### Installation
-```bash
-npm install -g create-leafer
-```
+[English](./README.en.md) | 简体中文
+
+`create-leafer` is a CLI tool for quickly creating [Leafer](https://www.leaferjs.com/) projects.
+
+> If this project has been helpful to you, you're welcome to give it a Star ⭐️. Thank you for your support! Additionally, feel free to report bugs or share your suggestions through [issues](https://github.com/214L/create-leafer/issues) or other methods.
+
 #### Usage
-##### Quickly create leafer projects with Vue
+
+##### Quickly create a `Vue` + `Leafer` template project
+This command will generate a `Vue3` + `TypeScript` + `Leafer` project template in the directory.
 ```bash
 npm create leafer vue-template
 ```
-or
+
+##### Import `Leafer` to your project
+This command will guide you through adding Leafer dependencies to your existing project interactively.
 ```bash
-npx create-leafer vue-template
+npm create leafer init
 ```
-##### Quickly create leafer plugin project
+
+##### Quickly create a LeaferX plugin template
+This command helps you generate a LeaferX project template for plugin or application development.
 ```bash
 npm create leafer plugin
 ```
-or
+
+#### Global Installation
+
+You can also globally install `create-leafer` to use this tool.
+
 ```bash
-npx create-leafer plugin
+npm install -g create-leafer
 ```
-###### Options
-- project name : naming the folder of the project
-- package name : naming your package,this value will write to package.json
-- support platform : multiple choose the platform you want to support.This value will write in rollup.config.js ,which affects the build product
+
+Once installed globally, you can use the `create-leafer` or `leafer` command to run features:
+```bash
+npx leafer vue-template
+npx leafer init
+npx leafer plugin
+```
