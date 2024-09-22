@@ -1,6 +1,6 @@
 ### create-leafer
 
-[English](./README.en.md) | 简体中文
+English | [简体中文](./README.md)
 
 `create-leafer` is a CLI tool for quickly creating [Leafer](https://www.leaferjs.com/) projects.
 
@@ -21,7 +21,7 @@ npm create leafer init
 ```
 
 ##### Quickly create a LeaferX plugin template
-This command helps you generate a LeaferX project template for plugin or application development.
+This command helps you generate a LeaferX project template for plugin or upper layer application development.
 ```bash
 npm create leafer plugin
 ```
