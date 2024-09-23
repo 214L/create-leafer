@@ -12,12 +12,14 @@ import {
   getLeaferVersion,
   getCommand
 } from '../../utils/index'
-const initOptionsSchema = z.object({
-  cwd: z.string(),
+
+const addOptionsSchema = z.object({
+  cwd: z.string()
 })
-export const init = new Command()
-  .name('init')
-  .description('initialize your leafer project and install dependencies')
+
+export const add = new Command()
+  .name('add')
+  .description('add or update leafer dependencies in your project')
   .option(
     '-c, --cwd <cwd>',
     'the working directory. defaults to the current directory.',
@@ -25,75 +27,100 @@ export const init = new Command()
   )
   .action(async opts => {
     try {
-      const options = initOptionsSchema.parse(opts)
+      const options = addOptionsSchema.parse(opts)
       const cwd = path.resolve(options.cwd)
       const promptMessage = getPrompt()
 
-      //check cwd exist
+      // Check if cwd exists
       if (!existsSync(cwd)) {
         console.log(red(`The path ${cwd} does not exist. Please try again.`))
         process.exit(1)
       }
-      //check package.json exist
+
+      // Check if package.json exists
       if (!fs.existsSync(path.resolve(cwd, 'package.json'))) {
         console.log(
           lightGreen(
             `No package.json file found in ${cwd}. Please initialize your project first.`
           )
         )
+        process.exit(1)
       }
-      //get package manager
+
+      // Get package manager
       const agent = await getPackageManager(cwd)
 
-      //check existing leafer package
+      // Check for existing leafer packages
       const existingLeaferPackage = await findLeaferPackage(cwd)
 
-      //if leafer exist tell user use add instead of init
-      if (existingLeaferPackage.length) {
+      if (!existingLeaferPackage.length) {
         console.log(
           red(
-            `The project already has leafer installed. Please use ${lightGreen(
-              bold('add')
-            )} command instead of ${lightGreen(bold('init'))} command.`
+            `No existing leafer package found. Please use ${lightGreen(
+              bold('init')
+            )} command to start your project.`
           )
         )
         process.exit(1)
       }
-      //get leafer package enum
+
+      // Get leafer package info
       const { LeaferBasePackage, LeaferInPackage } =
         await getLeaferPackageInfo()
-      //prompt choose run platform
+
+      // Parse package.json to get existing dependencies
+      const packagePath = path.resolve(cwd, 'package.json')
+      const existing = JSON.parse(fs.readFileSync(packagePath, 'utf8'))
+
+      let existingDependencies = existing.dependencies || {}
+      let existingDevDependencies = existing.devDependencies || {}
+
+      // Prompt user for scene selection and leafer packages to add/update
       let result: {
-        supportPlatforms?: string
         sceneSelect?: string
         leaferInSelect?: string[]
       } = {}
+
+      // Pre-select scene based on existing leafer dependencies
+      const preSelectScene = Object.keys(existingDependencies).find(dep =>
+        ['leafer-editor', 'leafer-draw', 'leafer-ui'].includes(dep)
+      )
+      const selectedScene =
+        preSelectScene === 'leafer-editor'
+          ? 'editor'
+          : preSelectScene === 'leafer-draw'
+          ? 'draw'
+          : 'view'
+
+      // Pre-select plugins based on existing leaferIn packages
+      const selectedPlugins = Object.keys(existingDependencies)
+        .filter(dep => dep.startsWith('@leafer-in/'))
+        .map(dep => dep.replace('@leafer-in/', ''))
+      console.log(selectedScene, selectedPlugins)
+
       try {
         result = await prompts(
           [
             {
-              name: 'supportPlatforms',
-              type: 'select',
-              message: promptMessage.supportPlatform.message,
-              choices: [
-                { title: 'web', value: 'web' },
-                { title: 'worker', value: 'worker' },
-                { title: 'node', value: 'node' },
-                { title: 'miniapp', value: 'miniapp' }
-              ]
-            },
-            {
               name: 'sceneSelect',
               type: 'select',
               message: promptMessage.sceneSelect.message,
-              choices: promptMessage.sceneSelect.choices
+              choices: promptMessage.sceneSelect.choices,
+              initial:
+                promptMessage.sceneSelect.choices
+                  .map(item => item.value)
+                  .indexOf(selectedScene) || 0
             },
             {
               name: 'leaferInSelect',
               type: 'multiselect',
               message: promptMessage.leaferInSelect.message,
               choices: prev =>
-                handlePluginChoices(prev, promptMessage.leaferInSelect.choices),
+                handlePluginChoices(
+                  prev,
+                  promptMessage.leaferInSelect.choices,
+                  selectedPlugins
+                ),
               hint: promptMessage.leaferInSelect.hint,
               instructions: false,
               min: 0,
@@ -112,32 +139,21 @@ export const init = new Command()
         console.log('cancelled', cancelled)
         process.exit(1)
       }
-      //handle dependencies
+
+      // Handle dependencies to add or update
       let dependencies = []
       let devDependencies = []
       let excludePlugin = []
       if (result.sceneSelect === 'editor') {
-        dependencies.push(
-          result.supportPlatforms === 'web'
-            ? `leafer-editor`
-            : `@leafer-editor/${result.supportPlatforms}`
-        )
+        dependencies.push(`leafer-editor`)
         excludePlugin = ['editor', 'view', 'scroll', 'arrow', 'html']
       } else if (result.sceneSelect === 'draw') {
-        dependencies.push(
-          result.supportPlatforms === 'web'
-            ? `leafer-draw`
-            : `@leafer-draw/${result.supportPlatforms}`
-        )
+        dependencies.push(`leafer-draw`)
       } else {
-        dependencies.push(
-          result.supportPlatforms === 'web'
-            ? `leafer-ui`
-            : `@leafer-ui/${result.supportPlatforms}`
-        )
+        dependencies.push(`leafer-ui`)
       }
 
-      //exclude plugin
+      // Exclude plugins if necessary
       if (result.leaferInSelect.length) {
         result.leaferInSelect
           .filter(item => !excludePlugin.includes(item))
@@ -150,38 +166,27 @@ export const init = new Command()
           })
       }
 
-      // Handle platform
-      if (result.supportPlatforms !== 'web') {
-        const htmlIndex = dependencies.indexOf('@leafer-in/html')
-        if (htmlIndex !== -1) {
-          // Remove 'html' from dependencies
-          dependencies.splice(htmlIndex, 1)
-          console.log(
-            red(
-              '/* @leafer-in/html plugin not supported on non-web platforms, removed from dependencies */'
-            )
-          )
-        }
-      }
-      let leaferVersion = await getLeaferVersion()
-      //write file
-      let packagePath = path.resolve(cwd, 'package.json')
-      const existing = JSON.parse(fs.readFileSync(packagePath, 'utf8'))
+      // Handle platform restrictions
+      const leaferVersion = await getLeaferVersion()
+
+      // Update package.json dependencies
       if (dependencies.length) {
         existing.dependencies = dependencies.reduce((acc, cur) => {
           acc[cur] = `^${leaferVersion}`
           return acc
         }, existing.dependencies || {})
       }
+
       if (devDependencies.length) {
         existing.devDependencies = devDependencies.reduce((acc, cur) => {
           acc[cur] = `^${leaferVersion}`
           return acc
         }, existing.devDependencies || {})
       }
+
       fs.writeFileSync(packagePath, JSON.stringify(existing, null, 2))
 
-      //prompt start project
+      // Prompt to start project
       console.log(`\n${promptMessage.infos.done}\n`)
       const root = process.cwd()
 
@@ -201,21 +206,22 @@ export const init = new Command()
       console.log(`  ${bold(green(getCommand(agent, 'dev')))}`)
       console.log()
     } catch (error) {
-      console.error(
-        red('An error occurred during the initialization process:'),
-        error
-      )
+      console.error(red('An error occurred during the add process:'), error)
       process.exit(1)
     }
   })
-function handlePluginChoices(prev, choices) {
-  if (prev === 'editor') {
-    let initChosen = ['editor', 'view', 'scroll', 'arrow', 'html']
-    choices.forEach(item => {
-      if (initChosen.includes(item.value)) {
-        item.selected = true
-      }
-    })
-  }
+
+function handlePluginChoices(prev, choices, selectedPlugins) {
+  const initChosen = ['editor', 'view', 'scroll', 'arrow', 'html']
+
+  choices.forEach(item => {
+    if (prev === 'editor' && initChosen.includes(item.value)) {
+      item.selected = true
+    }
+    if (selectedPlugins.includes(item.value)) {
+      item.selected = true
+    }
+  })
+
   return choices
 }
