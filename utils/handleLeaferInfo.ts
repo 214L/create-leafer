@@ -24,7 +24,7 @@ interface SearchResponse {
 
 export async function getLeaferVersion(): Promise<string> {
   console.log(bold(lightGreen('Fetching Leafer version...')))
-  const defaultVersion = '1.0.2'
+  const defaultVersion = '1.0.3'
   const timeout = 10000 // 10 seconds
 
   // Function to get version using npm show
