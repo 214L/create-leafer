@@ -70,7 +70,6 @@ export async function getPackageManager(
   targetDir: string
 ): Promise<'yarn' | 'pnpm' | 'bun' | 'npm'> {
   const { agent } = await detect({ cwd: targetDir })
-  console.log(agent)
 
   if (agent === 'yarn@berry') return 'yarn'
   if (agent === 'pnpm@6') return 'pnpm'
