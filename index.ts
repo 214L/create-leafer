@@ -7,6 +7,7 @@ import { plugin } from './src/commands/plugin'
 import { init } from './src/commands/init'
 import { add } from './src/commands/add'
 import { update } from './src/commands/update'
+import { yellow } from 'kolorist'
 process.on('SIGINT', () => process.exit(0))
 process.on('SIGTERM', () => process.exit(0))
 
@@ -30,7 +31,7 @@ async function main() {
         (latestMajor === currentMajor && latestMinor > currentMinor)
       ) {
         console.log(
-          `create-leafer update available: ${packageInfo.version} → ${latestVersion}`
+          yellow(`create-leafer update available: ${packageInfo.version} → ${latestVersion}`)
         )
         console.log(`Run npm install -g ${packageInfo.name} to update.`)
       }

@@ -4,7 +4,7 @@
 
 create-leafer 是一个用于快速创建[Leafer](https://www.leaferjs.com/)项目的命令行工具。
 
-> 如果这个项目对你有帮助，欢迎给它一个 star :star: ，谢谢你的支持！ 同时，欢迎通过 [issue](https://github.com/214L/create-leafer/issues) 或其他方式反馈 Bug 或提供改进意见。
+> 如果这个项目对你有帮助，请给它一个 star :star: ，谢谢你的支持！欢迎通过 [issue](https://github.com/214L/create-leafer/issues) 或其他方式反馈 Bug 或提供改进意见。
 
 #### 使用方法
 
@@ -52,7 +52,7 @@ npm create leafer plugin
 #### 全局安装
 
 你也可以使用全局安装 create-leafer 来使用本工具。
-> 全局安装虽然命令更简短，但是更推荐使用`npm create leafer`的方式自动使用最新create-leafer版本。如果使用全局安装，请及时更新插件已使用最新特性和更稳定的版本。
+> 全局安装虽然命令更简短，但是更推荐使用`npm create leafer`的方式自动使用最新的create-leafer版本。如果使用全局安装，请及时更新以使用最新特性和更稳定的版本。
 
 ```bash
 npm install -g create-leafer
