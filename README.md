@@ -32,6 +32,15 @@ npm create leafer init
 npm create leafer add
 ```
 
+
+##### 更新项目中的 leafer 依赖
+
+该命令会检查并更新项目中的 leafer 依赖。
+
+```bash
+npm create leafer update
+```
+
 ##### 快速创建 LeaferX 插件模版
 
 该命令会帮助你生成一个 LeaferX 的项目模板，供插件/上层应用开发。
@@ -42,7 +51,8 @@ npm create leafer plugin
 
 #### 全局安装
 
-你也可以使用全局安装 create-leafer 来使用本工具
+你也可以使用全局安装 create-leafer 来使用本工具。
+> 全局安装虽然命令更简短，但是更推荐使用`npm create leafer`的方式自动使用最新create-leafer版本。如果使用全局安装，请及时更新插件已使用最新特性和更稳定的版本。
 
 ```bash
 npm install -g create-leafer

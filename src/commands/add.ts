@@ -64,9 +64,6 @@ export const add = new Command()
         process.exit(1)
       }
 
-      // Get leafer package info
-      const { LeaferBasePackage, LeaferInPackage } =
-        await getLeaferPackageInfo()
 
       // Parse package.json to get existing dependencies
       const packagePath = path.resolve(cwd, 'package.json')

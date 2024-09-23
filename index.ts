@@ -5,7 +5,8 @@ import { Command } from 'commander'
 import { vueTemplate } from './src/commands/vueTemplate'
 import { plugin } from './src/commands/plugin'
 import { init } from './src/commands/init'
-import {add} from './src/commands/add'
+import { add } from './src/commands/add'
+import { update } from './src/commands/update'
 process.on('SIGINT', () => process.exit(0))
 process.on('SIGTERM', () => process.exit(0))
 
@@ -39,7 +40,7 @@ async function main() {
   }
 
   checkForUpdates()
-  
+
   const program = new Command()
     .name('leafer')
     .description('create different Leafer projects')
@@ -51,6 +52,7 @@ async function main() {
 
   program.addCommand(init)
   program.addCommand(add)
+  program.addCommand(update)
   program.addCommand(vueTemplate)
   program.addCommand(plugin)
   program.parse()

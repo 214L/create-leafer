@@ -12,6 +12,8 @@ English | [简体中文](./README.md)
 
 This command will generate a `Vue3` + `TypeScript` + `Leafer` project template in the directory.
 
+> While the global installation command is shorter, it is recommended to use `npm create leafer` to automatically use the latest version of create-leafer. If you choose to install globally, please update the plugins regularly to ensure you have the latest features and a more stable version.
+
 ```bash
 npm create leafer vue-template
 ```
@@ -30,6 +32,14 @@ This command interactively modifies the necessary Leafer dependencies in your cu
 
 ```bash
 npm create leafer add
+```
+
+##### Update Leafer Dependencies in the Project
+
+This command will checks and updates the Leafer dependencies in your project.
+
+```bash
+npm create leafer update
 ```
 
 ##### Quickly create a LeaferX plugin template

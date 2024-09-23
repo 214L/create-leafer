@@ -59,9 +59,7 @@ export const init = new Command()
         )
         process.exit(1)
       }
-      //get leafer package enum
-      const { LeaferBasePackage, LeaferInPackage } =
-        await getLeaferPackageInfo()
+      
       //prompt choose run platform
       let result: {
         supportPlatforms?: string

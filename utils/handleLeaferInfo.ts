@@ -136,7 +136,7 @@ const LeaferInPackage = {
 }
 
 export function getLeaferPackageInfo() {
-  return { LeaferBasePackage, LeaferInPackage }
+  return { ...LeaferBasePackage, ...LeaferInPackage }
 }
 /**
  * @description fetch with timeout
