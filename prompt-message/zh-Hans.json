@@ -37,47 +37,57 @@
       {
         "title": "interface",
         "value": "interface",
-        "description": "TypeScript interface of official feature plugins"
+        "description": "官方插件的TypeScript类型"
       },
       {
         "title": "editor",
         "value": "editor",
-        "description": ""
+        "description": "用于编辑操作图形，提供了丰富的功能和样式配置"
       },
       {
         "title": "html",
         "value": "html",
-        "description": ""
+        "description": "用于渲染 HTML 相关内容"
       },
       {
         "title": "scroll",
         "value": "scroll",
-        "description": ""
+        "description": "无限画布滚动条，按需显示横向、竖向滚动条"
       },
       {
         "title": "arrow",
         "value": "arrow",
-        "description": ""
+        "description": "为线条添加起始/结束箭头"
       },
       {
         "title": "view",
         "value": "view",
-        "description": ""
+        "description": "控制视图的缩放"
       },
       {
         "title": "state",
         "value": "state",
-        "description": ""
+        "description": "控制元素的状态"
       },
       {
         "title": "text-editor",
         "value": "text-editor",
-        "description": ""
+        "description": "双击文本进入编辑状态"
       },
       {
         "title": "flow",
         "value": "flow",
-        "description": ""
+        "description": "自动布局"
+      },
+      {
+        "title": "animate",
+        "value": "animate",
+        "description": "动画"
+      },
+      {
+        "title": "robot",
+        "value": "robot",
+        "description": "sprite ，可用于制作游戏动作、组态动画"
       }
     ]
   },

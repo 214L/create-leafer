@@ -37,47 +37,57 @@
       {
         "title": "interface",
         "value": "interface",
-        "description": "TypeScript interface of official feature plugins"
+        "description": "TypeScript interface of official feature plugins."
       },
       {
         "title": "editor",
         "value": "editor",
-        "description": ""
+        "description": "Used to edit operation graphics and provides rich features and style configuration."
       },
       {
         "title": "html",
         "value": "html",
-        "description": ""
+        "description": "Render html related content"
       },
       {
         "title": "scroll",
         "value": "scroll",
-        "description": ""
+        "description": "Infinite canvas scroll bar, display horizontal and vertical scroll bars on demand"
       },
       {
         "title": "arrow",
         "value": "arrow",
-        "description": ""
+        "description": "Add start/end arrows for a line"
       },
       {
         "title": "view",
         "value": "view",
-        "description": ""
+        "description": "Control the zoom of the view"
       },
       {
         "title": "state",
         "value": "state",
-        "description": ""
+        "description": "Control the state of the element"
       },
       {
         "title": "text-editor",
         "value": "text-editor",
-        "description": ""
+        "description": "Double-click the text to enter the editing state"
       },
       {
         "title": "flow",
         "value": "flow",
-        "description": ""
+        "description": "Automatic layout"
+      },
+      {
+        "title": "animate",
+        "value": "animate",
+        "description": "Animation effect"
+      },
+      {
+        "title": "robot",
+        "value": "robot",
+        "description": "sprite , used to make game action, configuration animation."
       }
     ]
   },

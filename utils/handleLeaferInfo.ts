@@ -126,9 +126,11 @@ const LeaferInPackage = {
   '@leafer-in/scroll': { type: 'save' },
   '@leafer-in/arrow': { type: 'save' },
   '@leafer-in/view': { type: 'save' },
-  '@leafer-in/state': { type: 'save' },
   '@leafer-in/text-editor': { type: 'save' },
   '@leafer-in/flow': { type: 'save' },
+  '@leafer-in/animate': { type: 'save' },
+  '@leafer-in/robot': { type: 'save' },
+  '@leafer-in/state': { type: 'save' },
   '@leafer-in/resize': { private: true },
   '@leafer-in/scale': { private: true }
 }
