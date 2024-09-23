@@ -140,6 +140,7 @@ export const init = new Command()
             : `@leafer-ui/${result.supportPlatforms}`
         )
       }
+
       //exclude plugin
       if (result.leaferInSelect.length) {
         result.leaferInSelect
@@ -151,6 +152,20 @@ export const init = new Command()
               dependencies.push(`@leafer-in/${item}`)
             }
           })
+      }
+
+      // Handle platform
+      if (result.supportPlatforms !== 'web') {
+        const htmlIndex = dependencies.indexOf('@leafer-in/html')
+        if (htmlIndex !== -1) {
+          // Remove 'html' from dependencies
+          dependencies.splice(htmlIndex, 1)
+          console.log(
+            red(
+              '/* @leafer-in/html plugin not supported on non-web platforms, removed from dependencies */'
+            )
+          )
+        }
       }
       let leaferVersion = await getLeaferVersion()
       //write file
@@ -190,7 +205,10 @@ export const init = new Command()
       console.log(`  ${bold(green(getCommand(agent, 'dev')))}`)
       console.log()
     } catch (error) {
-      console.error(red('An error occurred during the initialization process:'), error)
+      console.error(
+        red('An error occurred during the initialization process:'),
+        error
+      )
       process.exit(1)
     }
   })
