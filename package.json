@@ -34,6 +34,7 @@
     "@types/lodash.template": "^4.5.1",
     "@types/node": "^20.14.15",
     "@types/prompts": "^2.4.9",
+    "node-fetch": "^3.3.2",
     "commander": "^12.1.0",
     "ejs": "^3.1.10",
     "esbuild": "^0.18.20",

@@ -104,7 +104,27 @@ const LeaferBasePackage = {
   'leafer-ui': {},
   '@leafer-ui/worker': {},
   '@leafer-ui/node': {},
-  '@leafer-ui/miniapp': {}
+  '@leafer-ui/miniapp': {},
+  '@leafer-ui/draw': {},
+  '@leafer-ui/interface': {},
+  '@leafer-ui/core': {},
+  '@leafer-ui/partner': {},
+  '@leafer-ui/event': {},
+  '@leafer-ui/interaction-web': {},
+  '@leafer-ui/external': {},
+  '@leafer-ui/data': {},
+  '@leafer-ui/display-module': {},
+  '@leafer-ui/interaction': {},
+  '@leafer-ui/decorator': {},
+  '@leafer-ui/display': {},
+  '@leafer-ui/export': {},
+  '@leafer-ui/type': {},
+  '@leafer-ui/web': {},
+  '@leafer-ui/render': {},
+  '@leafer-ui/bounds': {},
+  '@leafer-ui/effect': {},
+  '@leafer-ui/paint': {},
+  '@leafer-ui/color': {}
 }
 const LeaferInPackage = {
   'leafer-editor': {
@@ -135,9 +155,63 @@ const LeaferInPackage = {
   '@leafer-in/scale': { private: true }
 }
 
-export function getLeaferPackageInfo() {
-  return { ...LeaferBasePackage, ...LeaferInPackage }
+const baseEditorInfo = {
+  '@leafer-editor/partner': {},
+  '@leafer-editor/web': {},
+  '@leafer-editor/canvaskit': {},
+  '@leafer-editor/miniapp': {},
+  '@leafer-editor/worker': {},
+  '@leafer-editor/node': {}
 }
+const baseInfo = {
+  '@leafer/core': {},
+  '@leafer/math': {},
+  '@leafer/debug': {},
+  '@leafer/interface': {},
+  '@leafer/platform': {},
+  '@leafer/event': {},
+  '@leafer/data': {},
+  '@leafer/partner': {},
+  '@leafer/helper': {},
+  '@leafer/list': {},
+  '@leafer/web': {},
+  '@leafer/decorator': {},
+  '@leafer/layouter': {},
+  '@leafer/file': {},
+  '@leafer/display-module': {},
+  '@leafer/canvas': {},
+  '@leafer/layout': {},
+  '@leafer/task': {},
+  '@leafer/path': {},
+  '@leafer/renderer': {}
+}
+export function getLeaferPackageInfo() {
+  return {
+    ...LeaferBasePackage,
+    ...LeaferInPackage,
+    ...baseEditorInfo,
+    ...baseInfo
+  }
+}
+
+export function getLeaferPackageName(): Array<string> {
+  const allKeys: Set<string> = new Set() // Use Set for uniqueness
+
+  // List all objects directly inside the function
+  const objects: Array<{ [key: string]: {} }> = [
+    LeaferBasePackage,
+    LeaferInPackage,
+    baseEditorInfo,
+    baseInfo
+  ]
+
+  objects.forEach(obj => {
+    Object.keys(obj).forEach(key => allKeys.add(key))
+  })
+
+  return Array.from(allKeys) // Convert Set to an array and return
+}
+
 /**
  * @description fetch with timeout
  * @param url target url
