@@ -95,7 +95,7 @@ export const init = new Command()
               hint: promptMessage.leaferInSelect.hint,
               instructions: false,
               min: 0,
-              max: 10
+              max: promptMessage.leaferInSelect.choices.length
             }
           ],
           {
