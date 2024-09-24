@@ -23,14 +23,14 @@ describe('getNpmRegistry', () => {
 })
 
 describe('getLeaferVersion', () => {
-  const defaultVersion = '1.0.3'
+  const defaultVersion = '1.0.4'
   const mockPrimaryRegistry = 'https://registry.npmjs.org/'
   const mockFallbackRegistries = [
     'https://registry.npmjs.org/',
     'https://registry.npmmirror.com',
     'https://mirrors.huaweicloud.com/repository/npm/'
   ]
-  const mockResponseData = { version: '1.0.3' }
+  const mockResponseData = { version: '1.0.4' }
 
   beforeEach(() => {
     vi.clearAllMocks()
@@ -46,7 +46,7 @@ describe('getLeaferVersion', () => {
 
     const version = await getLeaferVersion()
 
-    expect(version).toBe('1.0.3')
+    expect(version).toBe('1.0.4')
     expect(fetch).toHaveBeenCalledWith(
       `${mockPrimaryRegistry}leafer/latest`,
       expect.objectContaining({
@@ -76,7 +76,7 @@ describe('getLeaferVersion', () => {
 
     const version = await getLeaferVersion()
 
-    expect(version).toBe('1.0.3')
+    expect(version).toBe('1.0.4')
     expect(fetch).toHaveBeenCalledWith(
       `${mockFallbackRegistries[0]}leafer/latest`,
       expect.any(Object)
@@ -112,20 +112,20 @@ describe('getLeaferVersion', () => {
     // Mock successful response from the first fallback registry
     mockFetch.mockResolvedValueOnce({
       ok: true,
-      json: async () => ({ version: '1.0.3' })
+      json: async () => ({ version: '1.0.4' })
     } as Response)
 
     // Mock additional fallback responses if needed
     mockFetch.mockResolvedValueOnce({
       ok: true,
-      json: async () => ({ version: '1.0.3' })
+      json: async () => ({ version: '1.0.4' })
     } as Response)
 
     const version = await getLeaferVersion()
 
     console.log('Fetch calls:', mockFetch.mock.calls)
 
-    expect(version).toBe('1.0.3')
+    expect(version).toBe('1.0.4')
     expect(fetch).toHaveBeenCalledTimes(3) // Adjust based on expected number of calls
   }, 10) // Increase timeout for this test
 })
