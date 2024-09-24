@@ -34,6 +34,7 @@ export const init = new Command()
         console.log(red(`The path ${cwd} does not exist. Please try again.`))
         process.exit(1)
       }
+      
       //check package.json exist
       if (!fs.existsSync(path.resolve(cwd, 'package.json'))) {
         console.log(
@@ -41,6 +42,7 @@ export const init = new Command()
             `No package.json file found in ${cwd}. Please initialize your project first.`
           )
         )
+        process.exit(1);
       }
       //get package manager
       const agent = await getPackageManager(cwd)
