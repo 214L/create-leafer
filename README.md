@@ -13,7 +13,7 @@ create-leafer 是一个用于快速创建[Leafer](https://www.leaferjs.com/)项�
 该命令会在当前目录下生成一个`Vue3`+`TypeScript`+`Leafer`的项目模板。
 
 ```bash
-npm create leafer vue-template
+npm create leafer@latest vue-template
 ```
 
 ##### 在项目中引入 `Leafer`
@@ -21,7 +21,7 @@ npm create leafer vue-template
 该命令会以引导交互的方式在当前的项目中引入 leafer 依赖。
 
 ```bash
-npm create leafer init
+npm create leafer@latest init
 ```
 
 ##### 添加或删除项目中的 leafer 依赖
@@ -29,7 +29,7 @@ npm create leafer init
 该命令会以引导交互的方式修改当前项目中需要的 leafer 依赖。
 
 ```bash
-npm create leafer add
+npm create leafer@latest add
 ```
 
 
@@ -38,7 +38,7 @@ npm create leafer add
 该命令会检查并更新项目中的 leafer 依赖。
 
 ```bash
-npm create leafer update
+npm create leafer@latest update
 ```
 
 ##### 快速创建 LeaferX 插件模版
@@ -46,7 +46,7 @@ npm create leafer update
 该命令会帮助你生成一个 LeaferX 的项目模板，供插件/上层应用开发。
 
 ```bash
-npm create leafer plugin
+npm create leafer@latest plugin
 ```
 
 #### 全局安装
@@ -55,7 +55,7 @@ npm create leafer plugin
 > 全局安装虽然命令更简短，但是更推荐使用`npm create leafer`的方式自动使用最新的create-leafer版本。如果使用全局安装，请及时更新以使用最新特性和更稳定的版本。
 
 ```bash
-npm install -g create-leafer
+npm install -g create-leafer@latest
 ```
 
 全局安装后，可以使用`create-leafer`或者`leafer`命令来运行功能
