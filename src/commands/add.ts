@@ -87,13 +87,12 @@ export const add = new Command()
           ? 'editor'
           : preSelectScene === 'leafer-draw'
           ? 'draw'
-          : 'view'
+          : 'skip'
 
       // Pre-select plugins based on existing leaferIn packages
       const selectedPlugins = Object.keys(existingDependencies)
         .filter(dep => dep.startsWith('@leafer-in/'))
         .map(dep => dep.replace('@leafer-in/', ''))
-      console.log(selectedScene, selectedPlugins)
 
       try {
         result = await prompts(
@@ -189,7 +188,6 @@ export const add = new Command()
 
       if (root !== cwd) {
         const cdProjectName = path.relative(root, cwd)
-        console.log(cdProjectName)
 
         console.log(
           `  ${bold(
