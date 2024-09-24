@@ -53,12 +53,26 @@ export const update = new Command()
     // check updates
     const latestVersion = await getLeaferVersion()
     for (const dep of Object.keys(leaferDeps)) {
+      const currentVersion = dependencies[dep]
+
+      const currentPrefix = currentVersion
+        ? currentVersion.match(/^[^0-9]*/)
+        : ['']
+      const strippedCurrentVersion = currentVersion
+        ? currentVersion.replace(/^[^0-9]*(\d+\.\d+\.\d+)/, '$1')
+        : ''
+
+      const strippedLatestVersion = latestVersion.replace(
+        /^[^0-9]*(\d+\.\d+\.\d+)/,
+        '$1'
+      )
+
       if (
         dependencies[dep] &&
-        latestVersion &&
-        latestVersion !== dependencies[dep]
+        strippedLatestVersion &&
+        strippedLatestVersion !== strippedCurrentVersion
       ) {
-        updates[dep] = latestVersion
+        updates[dep] = `${currentPrefix}${latestVersion}`
       }
     }
 
@@ -102,6 +116,6 @@ export const update = new Command()
         )
       )
     } else {
-      console.log(red('Update cancel`led.'))
+      console.log(red('Update cancelled.'))
     }
   })

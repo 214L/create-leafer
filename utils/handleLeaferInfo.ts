@@ -1,105 +1,29 @@
-import { execSync } from 'node:child_process'
-import path from 'node:path'
-import fs from 'node:fs'
-import { bold, lightGreen, lightYellow } from 'kolorist'
+import { execSync } from 'node:child_process';
+import path from 'node:path';
+import fs from 'node:fs';
+import { bold, lightGreen, lightYellow } from 'kolorist';
+
 const FallbackRegistries = [
   'https://registry.npmjs.org/',
   'https://registry.npmmirror.com',
-  'https://mirrors.huaweicloud.com/repository/npm/'
-]
+  'https://mirrors.huaweicloud.com/repository/npm/',
+];
+
 interface Package {
-  name: string
-  version: string
-  description: string
+  name: string;
+  version: string;
+  description: string;
 }
 
 interface SearchResultObject {
-  package: Package
+  package: Package;
 }
 
 interface SearchResponse {
-  total: number
-  objects: SearchResultObject[]
+  total: number;
+  objects: SearchResultObject[];
 }
 
-export async function getLeaferVersion(): Promise<string> {
-  console.log(bold(lightGreen('Fetching Leafer version...')))
-  const defaultVersion = '1.0.3'
-  const timeout = 10000 // 10 seconds
-
-  // Function to get version using npm show
-  const getNpmShowVersion = async (): Promise<string> => {
-    try {
-      return execSync(`npm show leafer version`).toString().trim()
-    } catch (error) {
-      throw new Error('npm show failed')
-    }
-  }
-
-  // Function to fetch version from fallback registries
-  const fetchVersionFromRegistry = async (
-    registry: string
-  ): Promise<string> => {
-    try {
-      const response = await fetchWithTimeout(
-        `${registry}leafer/latest`,
-        timeout
-      )
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
-      }
-      const data = (await response.json()) as { version: string }
-      return data.version
-    } catch (error) {
-      throw new Error(`Fetch from ${registry} failed`)
-    }
-  }
-
-  try {
-    // Combine both npm show and registry fetches
-    const versionPromises = [
-      getNpmShowVersion(),
-      ...FallbackRegistries.map(registry => fetchVersionFromRegistry(registry))
-    ]
-
-    // Wait for the first successful result using Promise.any
-    const firstSuccessful = await Promise.any(versionPromises)
-    return firstSuccessful
-  } catch (error) {
-    // Only when all promises fail, log the error and return default version
-    console.error(
-      console.log(
-        bold(
-          lightYellow(
-            `All leafer version fetching methods failed. Use default version : ${defaultVersion}. `
-          )
-        )
-      )
-    )
-    return defaultVersion
-  }
-}
-
-export async function findLeaferPackage(cwd: string) {
-  let packagePath = path.resolve(cwd, 'package.json')
-  if (fs.existsSync(packagePath)) {
-    const existing = JSON.parse(fs.readFileSync(packagePath, 'utf8'))
-    let allDependencies = []
-    if (existing.devDependencies) {
-      allDependencies.push(...Object.keys(existing.devDependencies))
-    }
-    if (existing.dependencies) {
-      allDependencies.push(...Object.keys(existing.dependencies))
-    }
-    let leaferDependencies = allDependencies.filter(
-      item =>
-        Object.keys(LeaferBasePackage).includes[item] ||
-        Object.keys(LeaferInPackage).includes(item)
-    )
-    return leaferDependencies
-  }
-  return []
-}
 const LeaferBasePackage = {
   'leafer-ui': {},
   '@leafer-ui/worker': {},
@@ -124,8 +48,9 @@ const LeaferBasePackage = {
   '@leafer-ui/bounds': {},
   '@leafer-ui/effect': {},
   '@leafer-ui/paint': {},
-  '@leafer-ui/color': {}
-}
+  '@leafer-ui/color': {},
+};
+
 const LeaferInPackage = {
   'leafer-editor': {
     type: 'save',
@@ -136,8 +61,8 @@ const LeaferInPackage = {
       '@leafer-in/view',
       '@leafer-in/scroll',
       '@leafer-in/arrow',
-      '@leafer-in/html'
-    ]
+      '@leafer-in/html',
+    ],
   },
   'leafer-draw': { type: 'save' },
   '@leafer-in/interface': { type: 'develop' },
@@ -152,8 +77,8 @@ const LeaferInPackage = {
   '@leafer-in/robot': { type: 'save' },
   '@leafer-in/state': { type: 'save' },
   '@leafer-in/resize': { private: true },
-  '@leafer-in/scale': { private: true }
-}
+  '@leafer-in/scale': { private: true },
+};
 
 const baseEditorInfo = {
   '@leafer-editor/partner': {},
@@ -161,8 +86,9 @@ const baseEditorInfo = {
   '@leafer-editor/canvaskit': {},
   '@leafer-editor/miniapp': {},
   '@leafer-editor/worker': {},
-  '@leafer-editor/node': {}
-}
+  '@leafer-editor/node': {},
+};
+
 const baseInfo = {
   '@leafer/core': {},
   '@leafer/math': {},
@@ -183,53 +109,99 @@ const baseInfo = {
   '@leafer/layout': {},
   '@leafer/task': {},
   '@leafer/path': {},
-  '@leafer/renderer': {}
+  '@leafer/renderer': {},
+};
+
+export async function getLeaferVersion(): Promise<string> {
+  console.log(bold(lightGreen('Fetching Leafer version...')));
+  const defaultVersion = '1.0.3';
+  const timeout = 10000; // 10 seconds
+
+  const getNpmShowVersion = async (): Promise<string> => {
+    try {
+      return execSync('npm show leafer version').toString().trim();
+    } catch {
+      throw new Error('Failed to get version from npm.');
+    }
+  };
+
+  const fetchVersionFromRegistry = async (registry: string): Promise<string> => {
+    try {
+      const response = await fetchWithTimeout(`${registry}leafer/latest`, timeout);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch from ${registry}. Status: ${response.status}`);
+      }
+      const { version } = await response.json() as { version: string };
+      return version;
+    } catch {
+      throw new Error(`Fetch from ${registry} failed`);
+    }
+  };
+
+  try {
+    const versionPromises = [
+      getNpmShowVersion(),
+      ...FallbackRegistries.map(fetchVersionFromRegistry),
+    ];
+    return await Promise.any(versionPromises);
+  } catch {
+    console.error(bold(lightYellow(`All Leafer version fetching methods failed. Using default version: ${defaultVersion}.`)));
+    return defaultVersion;
+  }
 }
+
+export async function findLeaferPackage(cwd: string): Promise<string[]> {
+  const packagePath = path.resolve(cwd, 'package.json');
+  if (!fs.existsSync(packagePath)) {
+    return [];
+  }
+
+  const existing = JSON.parse(fs.readFileSync(packagePath, 'utf8'));
+  const allDependencies = [
+    ...Object.keys(existing.devDependencies || {}),
+    ...Object.keys(existing.dependencies || {}),
+  ];
+
+  return allDependencies.filter(item =>
+    item in LeaferBasePackage || item in LeaferInPackage
+  );
+}
+
 export function getLeaferPackageInfo() {
   return {
     ...LeaferBasePackage,
     ...LeaferInPackage,
     ...baseEditorInfo,
-    ...baseInfo
-  }
+    ...baseInfo,
+  };
 }
 
-export function getLeaferPackageName(): Array<string> {
-  const allKeys: Set<string> = new Set() // Use Set for uniqueness
-
-  // List all objects directly inside the function
-  const objects: Array<{ [key: string]: {} }> = [
-    LeaferBasePackage,
-    LeaferInPackage,
-    baseEditorInfo,
-    baseInfo
-  ]
+export function getLeaferPackageName(): string[] {
+  const allKeys = new Set<string>();
+  const objects = [LeaferBasePackage, LeaferInPackage, baseEditorInfo, baseInfo];
 
   objects.forEach(obj => {
-    Object.keys(obj).forEach(key => allKeys.add(key))
-  })
+    Object.keys(obj).forEach(key => allKeys.add(key));
+  });
 
-  return Array.from(allKeys) // Convert Set to an array and return
+  return Array.from(allKeys);
 }
 
 /**
- * @description fetch with timeout
- * @param url target url
- * @param timeout timeout
- * @returns
+ * @description Fetch with timeout
+ * @param url Target URL
+ * @param timeout Timeout in milliseconds
+ * @returns Response
  */
-async function fetchWithTimeout(
-  url: string,
-  timeout: number
-): Promise<Response> {
-  const controller = new AbortController()
-  const timeoutId = setTimeout(() => controller.abort(), timeout)
+async function fetchWithTimeout(url: string, timeout: number): Promise<Response> {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeout);
   try {
-    const response = await fetch(url, { signal: controller.signal })
-    clearTimeout(timeoutId)
-    return response
+    const response = await fetch(url, { signal: controller.signal });
+    clearTimeout(timeoutId);
+    return response;
   } catch (error) {
-    clearTimeout(timeoutId)
+    clearTimeout(timeoutId);
     throw error
   }
 }
