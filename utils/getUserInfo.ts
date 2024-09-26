@@ -1,7 +1,7 @@
 import * as fs from 'node:fs'
 import * as path from 'node:path'
 import { execSync } from 'node:child_process'
-import { detect } from 'package-manager-detector'
+import { detect } from 'package-manager-detector/detect'
 
 export function getNpmRegistry() {
   const registry = process.env.npm_config_registry
