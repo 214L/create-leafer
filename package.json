@@ -27,6 +27,16 @@
     "leaferX",
     "cli"
   ],
+  "dependencies": {
+    "fs-extra": "^11.1.0",
+    "kolorist": "^1.8.0",
+    "node-fetch": "^3.3.2",
+    "ora": "^8.0.1",
+    "prompts": "^2.4.2",
+    "package-manager-detector": "^0.2.0",
+    "type-fest": "^3.8.0",
+    "zod": "^3.23.8"
+  },
   "devDependencies": {
     "@tsconfig/node20": "^20.1.4",
     "@types/eslint": "^9.6.0",
@@ -34,19 +44,11 @@
     "@types/lodash.template": "^4.5.1",
     "@types/node": "^20.14.15",
     "@types/prompts": "^2.4.9",
-    "node-fetch": "^3.3.2",
     "commander": "^12.1.0",
     "ejs": "^3.1.10",
     "esbuild": "^0.18.20",
     "esbuild-plugin-license": "^1.2.3",
-    "fs-extra": "^11.1.0",
-    "kolorist": "^1.8.0",
-    "ora": "^8.0.1",
-    "package-manager-detector": "^0.2.0",
-    "prompts": "^2.4.2",
-    "type-fest": "^3.8.0",
     "vitest": "^2.0.5",
-    "zod": "^3.23.8",
     "zx": "^8.1.4"
   },
   "engines": {
