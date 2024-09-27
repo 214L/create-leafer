@@ -10,6 +10,9 @@
     "message": "Please select the platform that your plugin will support.",
     "hint": "- Space to select. Return to submit"
   },
+  "framework":{
+    "message":"Select a framework:"
+  },
   "sceneSelect": {
     "message": "Choose a scene package to quickly start the project, or skip to make detailed selections.",
     "choices": [

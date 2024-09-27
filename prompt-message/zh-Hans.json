@@ -4,11 +4,14 @@
     "message": "请输入项目名称："
   },
   "supportPlatform": {
-    "message": "请选择你的项目运行的平台"
+    "message": "请选择你的项目运行的平台："
   },
   "supportPlatforms": {
     "message": "请选择插件将支持的平台",
     "hint": "- 按下空格键选择，回车键提交"
+  },
+  "framework":{
+    "message":"请选择想使用的框架:"
   },
   "sceneSelect": {
     "message": "选择一个场景包以快速开始项目，或者跳过以进行详细选择。",
@@ -31,7 +34,7 @@
     ]
   },
   "leaferInSelect": {
-    "message": "选择你想要的官方功能插件",
+    "message": "选择你想要的官方功能插件：",
     "hint": "- 按下空格键选择，回车键提交",
     "choices": [
       {
