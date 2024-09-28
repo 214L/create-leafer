@@ -19,9 +19,9 @@ import {
   Framework
 } from '../../utils/index'
 
-export const vueTemplate = new Command()
-  .name('vue-template')
-  .description('generate a leafer+vue template project powered by vite')
+export const template = new Command()
+  .name('template')
+  .description('generate template project powered by vite')
   .option(
     '-c, --cwd <cwd>',
     'the working directory. defaults to the current directory.',

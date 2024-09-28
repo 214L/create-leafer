@@ -2,7 +2,7 @@
 
 import { execSync } from 'child_process'
 import { Command } from 'commander'
-import { vueTemplate } from './src/commands/vueTemplate'
+import { template } from './src/commands/template'
 import { plugin } from './src/commands/plugin'
 import { init } from './src/commands/init'
 import { add } from './src/commands/add'
@@ -31,7 +31,9 @@ async function main() {
         (latestMajor === currentMajor && latestMinor > currentMinor)
       ) {
         console.log(
-          yellow(`create-leafer update available: ${packageInfo.version} → ${latestVersion}`)
+          yellow(
+            `create-leafer update available: ${packageInfo.version} → ${latestVersion}`
+          )
         )
         console.log(`Run npm install -g ${packageInfo.name} to update.`)
       }
@@ -54,7 +56,7 @@ async function main() {
   program.addCommand(init)
   program.addCommand(add)
   program.addCommand(update)
-  program.addCommand(vueTemplate)
+  program.addCommand(template)
   program.addCommand(plugin)
   program.parse()
 }
