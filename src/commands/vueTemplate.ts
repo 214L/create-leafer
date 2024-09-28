@@ -2,7 +2,7 @@ import * as fs from 'node:fs'
 import * as path from 'node:path'
 import process from 'node:process'
 import prompts from 'prompts'
-import { red, gray, bold, lightGreen,green,yellow,blue,cyan } from 'kolorist'
+import { red, gray, bold, lightGreen } from 'kolorist'
 import { Command } from 'commander'
 import ora from 'ora'
 import {
@@ -14,7 +14,9 @@ import {
   isValidPackageName,
   toValidPackageName,
   renderTemplate,
-  getUser
+  getUser,
+  FRAMEWORKS,
+  Framework
 } from '../../utils/index'
 
 export const vueTemplate = new Command()
@@ -33,80 +35,13 @@ export const vueTemplate = new Command()
     console.log(banners.startingBanner)
     console.log()
 
-    type ColorFunc = (str: string | number) => string
-
-    type Framework = {
-      name: string
-      display: string
-      color: ColorFunc
-      variants: FrameworkVariant[]
-    }
-    type FrameworkVariant = {
-      name: string
-      display: string
-      color: ColorFunc
-      customCommand?: string
-    }
-    
-    const FRAMEWORKS: Framework[] = [
-      {
-        name: 'vanilla',
-        display: 'Vanilla',
-        color: yellow,
-        variants: [
-          {
-            name: 'vanilla-ts',
-            display: 'TypeScript',
-            color: blue,
-          },
-          {
-            name: 'vanilla',
-            display: 'JavaScript',
-            color: yellow,
-          },
-        ],
-      },
-      {
-        name: 'vue',
-        display: 'Vue',
-        color: green,
-        variants: [
-          {
-            name: 'vue-ts',
-            display: 'TypeScript',
-            color: blue,
-          },
-          {
-            name: 'vue',
-            display: 'JavaScript',
-            color: yellow,
-          }
-        ],
-      },
-      {
-        name: 'react',
-        display: 'React',
-        color: cyan,
-        variants: [
-          {
-            name: 'react-ts',
-            display: 'TypeScript',
-            color: blue,
-          },
-          {
-            name: 'react',
-            display: 'JavaScript',
-            color: yellow,
-          },
-        ],
-      },
-    ]
     let targetDir = ''
     let result: {
       projectName?: string
       shouldOverwrite?: boolean
       packageName?: string
       supportPlatforms?: string[]
+      variant?: string
     } = {}
 
     try {
@@ -158,17 +93,17 @@ export const vueTemplate = new Command()
               promptMessage.packageName.invalidMessage
           },
           {
-            type:'select',
+            type: 'select',
             name: 'framework',
-            message:promptMessage.framework.message,
+            message: promptMessage.framework.message,
             initial: 0,
-            choices: FRAMEWORKS.map((framework) => {
+            choices: FRAMEWORKS.map(framework => {
               const frameworkColor = framework.color
               return {
                 title: frameworkColor(framework.display || framework.name),
-                value: framework,
+                value: framework
               }
-            }),
+            })
           },
           {
             type: (framework: Framework) =>
@@ -176,14 +111,14 @@ export const vueTemplate = new Command()
             name: 'variant',
             message: 'Select a variant:',
             choices: (framework: Framework) =>
-              framework.variants.map((variant) => {
+              framework.variants.map(variant => {
                 const variantColor = variant.color
                 return {
                   title: variantColor(variant.display || variant.name),
-                  value: variant.name,
+                  value: variant.name
                 }
-              }),
-          },
+              })
+          }
         ],
         {
           onCancel: () => {
@@ -201,7 +136,8 @@ export const vueTemplate = new Command()
     const {
       projectName,
       packageName = projectName ?? 'leafer-',
-      shouldOverwrite
+      shouldOverwrite,
+      variant
     } = result
 
     const cwd = process.cwd()

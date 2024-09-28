@@ -1,6 +1,6 @@
 import * as fs from 'node:fs'
 import * as path from 'node:path'
-
+import { green, yellow, blue, cyan } from 'kolorist'
 export function renderTemplate(src, dest) {
   const stats = fs.statSync(src)
 
@@ -56,3 +56,72 @@ function deepMerge(target, obj) {
   }
   return target
 }
+
+type ColorFunc = (str: string | number) => string
+
+export type Framework = {
+  name: string
+  display: string
+  color: ColorFunc
+  variants: FrameworkVariant[]
+}
+type FrameworkVariant = {
+  name: string
+  display: string
+  color: ColorFunc
+  customCommand?: string
+}
+
+export const FRAMEWORKS: Framework[] = [
+  {
+    name: 'vanilla',
+    display: 'Vanilla',
+    color: yellow,
+    variants: [
+      {
+        name: 'vanilla-ts',
+        display: 'TypeScript',
+        color: blue
+      },
+      {
+        name: 'vanilla-js',
+        display: 'JavaScript',
+        color: yellow
+      }
+    ]
+  },
+  {
+    name: 'vue',
+    display: 'Vue',
+    color: green,
+    variants: [
+      {
+        name: 'vue-ts',
+        display: 'TypeScript',
+        color: blue
+      },
+      {
+        name: 'vue-js',
+        display: 'JavaScript',
+        color: yellow
+      }
+    ]
+  },
+  {
+    name: 'react',
+    display: 'React',
+    color: cyan,
+    variants: [
+      {
+        name: 'react-ts',
+        display: 'TypeScript',
+        color: blue
+      },
+      {
+        name: 'react-js',
+        display: 'JavaScript',
+        color: yellow
+      }
+    ]
+  }
+]
