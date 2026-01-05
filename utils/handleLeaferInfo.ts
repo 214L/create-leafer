@@ -114,7 +114,7 @@ const baseInfo = {
 
 export async function getLeaferVersion(): Promise<string> {
   console.log(bold(lightGreen('Fetching Leafer version...')));
-  const defaultVersion = '1.0.4';
+  const defaultVersion = '1.12.2';
   const timeout = 10000; // 10 seconds
 
   const getNpmShowVersion = async (): Promise<string> => {
