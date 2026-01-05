@@ -171,7 +171,13 @@ export const template = new Command()
       renderTemplate(templateDir, root)
     }
     // Render base template
-    render('leafer/vue')
+    if (variant) {
+      // Convert variant name (e.g., 'vanilla-js') to template path (e.g., 'vanilla/js')
+      const templatePath = variant.replace('-', '/')
+      render(`leafer/${templatePath}`)
+    } else {
+      throw new Error('No template variant selected')
+    }
 
     //handle leafer version
     let packagePath = path.resolve(root, 'package.json')
