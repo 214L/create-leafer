@@ -188,6 +188,21 @@ export const template = new Command()
       throw new Error('No template variant selected')
     }
 
+    const isLeaferPackage = (name: string) =>
+      name === 'leafer' ||
+      name.startsWith('leafer-') ||
+      name.startsWith('@leafer-') ||
+      name.startsWith('@leafer/')
+
+    const updateLeaferDeps = (deps: Record<string, string> | undefined) => {
+      if (!deps) return
+      Object.keys(deps).forEach(key => {
+        if (isLeaferPackage(key)) {
+          deps[key] = `^${leaferVersion}`
+        }
+      })
+    }
+
     //handle leafer version
     let packagePath = path.resolve(root, 'package.json')
     if (fs.existsSync(packagePath)) {
@@ -195,13 +210,8 @@ export const template = new Command()
       existing.name = pkg.name
       existing.author = pkg.author
       //handle leafer version
-      for (const key in existing.dependencies) {
-        if (Object.prototype.hasOwnProperty.call(existing.dependencies, key)) {
-          if (key !== 'vue') {
-            existing.dependencies[key] = `^${leaferVersion}`
-          }
-        }
-      }
+      updateLeaferDeps(existing.dependencies)
+      updateLeaferDeps(existing.devDependencies)
       fs.writeFileSync(packagePath, JSON.stringify(existing, null, 2))
     }
     //finish
