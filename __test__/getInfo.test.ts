@@ -1,10 +1,12 @@
 /// <reference types="vitest" />
 import { describe, it, expect, vi, beforeEach, Mock } from 'vitest'
 import { getLeaferVersion, getNpmRegistry } from '../utils/index'
+import { execSync } from 'node:child_process'
+
 global.fetch = vi.fn()
 
-vi.mock('./leafer', () => ({
-  getNpmRegistry: vi.fn()
+vi.mock('node:child_process', () => ({
+  execSync: vi.fn()
 }))
 
 describe('getNpmRegistry', () => {
@@ -23,52 +25,29 @@ describe('getNpmRegistry', () => {
 })
 
 describe('getLeaferVersion', () => {
-  const defaultVersion = '1.12.2'
-  const mockPrimaryRegistry = 'https://registry.npmjs.org/'
-  const mockFallbackRegistries = [
-    'https://registry.npmjs.org/',
-    'https://registry.npmmirror.com',
-    'https://mirrors.huaweicloud.com/repository/npm/'
-  ]
-  const mockResponseData = { version: '1.12.2' }
+  const defaultVersion = '2.0.0'
+  const mockResponseData = { version: '2.0.0' }
 
   beforeEach(() => {
     vi.clearAllMocks()
   })
 
-  it('should return version from primary registry if the request is successful', async () => {
-    // Mock successful response from primary registry
-    let mockFetch = fetch as Mock
-    mockFetch.mockResolvedValueOnce({
-      ok: true,
-      json: async () => mockResponseData
-    } as Response)
+  it('should return version from npm show if execSync succeeds', async () => {
+    const mockExec = execSync as unknown as Mock
+    mockExec.mockReturnValueOnce(Buffer.from('2.1.0'))
 
     const version = await getLeaferVersion()
 
-    expect(version).toBe('1.12.2')
-    expect(fetch).toHaveBeenCalledWith(
-      `${mockPrimaryRegistry}leafer/latest`,
-      expect.objectContaining({
-        signal: expect.any(AbortSignal)
-      })
-    )
+    expect(version).toBe('2.1.0')
+    expect(execSync).toHaveBeenCalledWith('npm show leafer version')
   })
 
-  it('should return version from fallback registry if primary request fails', async () => {
-    // Mock getNpmRegistry to return the primary registry URL
-    vi.mock('./leafer', () => ({
-      getNpmRegistry: () => mockPrimaryRegistry
-    }))
-
-    // Mock failed response from primary registry
-    
-    let mockFetch = fetch as Mock
-    mockFetch.mockResolvedValueOnce(
-      new Error('Primary registry failed')
-    )
-
-    // Mock successful response from the first fallback registry
+  it('should return version from registry when execSync fails', async () => {
+    const mockExec = execSync as unknown as Mock
+    mockExec.mockImplementationOnce(() => {
+      throw new Error('npm show failed')
+    })
+    const mockFetch = fetch as Mock
     mockFetch.mockResolvedValueOnce({
       ok: true,
       json: async () => mockResponseData
@@ -76,56 +55,25 @@ describe('getLeaferVersion', () => {
 
     const version = await getLeaferVersion()
 
-    expect(version).toBe('1.12.2')
+    expect(version).toBe('2.0.0')
     expect(fetch).toHaveBeenCalledWith(
-      `${mockFallbackRegistries[0]}leafer/latest`,
+      expect.stringContaining('leafer/latest'),
       expect.any(Object)
     )
   })
 
   it('should return default version if all requests fail', async () => {
-    // Mock getNpmRegistry to return the primary registry URL
-    vi.mock('./leafer', () => ({
-      getNpmRegistry: () => mockPrimaryRegistry
-    }))
-
-    // Mock failed responses from primary and all fallback registries
-    let mockFetch = fetch as Mock
-    mockFetch.mockResolvedValueOnce(new Error('Request failed'))
+    const mockExec = execSync as unknown as Mock
+    mockExec.mockImplementationOnce(() => {
+      throw new Error('npm show failed')
+    })
+    const mockFetch = fetch as Mock
+    mockFetch.mockRejectedValue(new Error('Request failed'))
 
     const version = await getLeaferVersion()
 
     expect(version).toBe(defaultVersion)
-    expect(fetch).toHaveBeenCalledTimes(3)
+    expect(fetch).toHaveBeenCalled()
+    expect(execSync).toHaveBeenCalledWith('npm show leafer version')
   })
-
-  it('should handle timeouts and return version from fallback registry', async () => {
-    // Mock timeout response from primary registry
-    let mockFetch = fetch as Mock
-    mockFetch.mockResolvedValueOnce(
-      () =>
-        new Promise(
-          (_, reject) => setTimeout(() => reject(new Error('Timeout')), 0) // Shortened timeout for faster testing
-        )
-    )
-
-    // Mock successful response from the first fallback registry
-    mockFetch.mockResolvedValueOnce({
-      ok: true,
-      json: async () => ({ version: '1.12.2' })
-    } as Response)
-
-    // Mock additional fallback responses if needed
-    mockFetch.mockResolvedValueOnce({
-      ok: true,
-      json: async () => ({ version: '1.12.2' })
-    } as Response)
-
-    const version = await getLeaferVersion()
-
-    console.log('Fetch calls:', mockFetch.mock.calls)
-
-    expect(version).toBe('1.12.2')
-    expect(fetch).toHaveBeenCalledTimes(3) // Adjust based on expected number of calls
-  }, 10) // Increase timeout for this test
 })
