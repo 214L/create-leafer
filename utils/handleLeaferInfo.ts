@@ -57,27 +57,46 @@ const LeaferInPackage = {
     includes: [
       'leafer-ui',
       '@leafer-editor/web',
-      '@leafer-in/editor',
+      '@leafer-in/text-editor',
+      '@leafer-in/viewport',
       '@leafer-in/view',
       '@leafer-in/scroll',
       '@leafer-in/arrow',
       '@leafer-in/html',
+      '@leafer-in/find',
+      '@leafer-in/export',
     ],
   },
+  '@leafer-editor/worker': { type: 'save' },
+  '@leafer-editor/node': { type: 'save' },
+  '@leafer-editor/miniapp': { type: 'save' },
   'leafer-draw': { type: 'save' },
-  '@leafer-in/interface': { type: 'develop' },
-  '@leafer-in/editor': { type: 'save' },
-  '@leafer-in/html': { type: 'save' },
+  '@leafer-draw/worker': { type: 'save' },
+  '@leafer-draw/node': { type: 'save' },
+  '@leafer-draw/miniapp': { type: 'save' },
+  'leafer-game': { type: 'save' },
+  '@leafer-game/worker': { type: 'save' },
+  '@leafer-game/node': { type: 'save' },
+  '@leafer-game/miniapp': { type: 'save' },
+  'leafer': { type: 'save' },
+  '@leafer/worker': { type: 'save' },
+  '@leafer/node': { type: 'save' },
+  '@leafer/miniapp': { type: 'save' },
+  '@leafer-in/viewport': { type: 'save' },
+  '@leafer-in/view': { type: 'save' },
   '@leafer-in/scroll': { type: 'save' },
   '@leafer-in/arrow': { type: 'save' },
-  '@leafer-in/view': { type: 'save' },
+  '@leafer-in/html': { type: 'save' },
   '@leafer-in/text-editor': { type: 'save' },
-  '@leafer-in/flow': { type: 'save' },
-  '@leafer-in/animate': { type: 'save' },
+  '@leafer-in/motion-path': { type: 'save' },
   '@leafer-in/robot': { type: 'save' },
   '@leafer-in/state': { type: 'save' },
-  '@leafer-in/resize': { private: true },
-  '@leafer-in/scale': { private: true },
+  '@leafer-in/find': { type: 'save' },
+  '@leafer-in/export': { type: 'save' },
+  '@leafer-in/filter': { type: 'save' },
+  '@leafer-in/color': { type: 'save' },
+  '@leafer-in/resize': { type: 'save' },
+  '@leafer-in/bright': { type: 'save' },
 };
 
 const baseEditorInfo = {
@@ -114,7 +133,7 @@ const baseInfo = {
 
 export async function getLeaferVersion(): Promise<string> {
   console.log(bold(lightGreen('Fetching Leafer version...')));
-  const defaultVersion = '1.12.2';
+  const defaultVersion = '2.0.0';
   const timeout = 10000; // 10 seconds
 
   const getNpmShowVersion = async (): Promise<string> => {

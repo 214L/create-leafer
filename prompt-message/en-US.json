@@ -14,83 +14,118 @@
     "message":"Select a framework:"
   },
   "sceneSelect": {
-    "message": "Choose a scene package to quickly start the project, or skip to make detailed selections.",
+    "message": "Choose a scene package to quickly start the project.",
     "choices": [
       {
-        "title": "skip",
-        "value": "skip",
-        "description": "Skip scene selection"
-      },
-      {
-        "title": "editor",
-        "value": "editor",
-        "description": "Based on leafer-ui ,suitable for online graphic editing scenarios."
+        "title": "ui",
+        "value": "ui",
+        "description": "General use, install leafer-ui."
       },
       {
         "title": "draw",
         "value": "draw",
-        "description": "A simplified leafer-ui version,more suitable for pure drawing scenarios."
+        "description": "High-efficiency drawing, install leafer-draw."
+      },
+      {
+        "title": "game",
+        "value": "game",
+        "description": "Game development, install leafer-game (includes game plugins)."
+      },
+      {
+        "title": "editor",
+        "value": "editor",
+        "description": "Graphic editing, install leafer-editor (includes editor plugins)."
+      },
+      {
+        "title": "full",
+        "value": "full",
+        "description": "Full bundle, install leafer (includes leafer-ui and all @leafer-in/*)."
       }
     ]
   },
   "leaferInSelect": {
     "message": "Choose the official feature plugins you want.",
-    "hint": "- Space to select. Return to submit",
+    "hint": "- Space to select. Return to submit. Use Up/Down to scroll",
     "choices": [
       {
         "title": "interface",
         "value": "interface",
-        "description": "TypeScript interface of official feature plugins."
+        "description": "Interface package (plugin dev dependency)."
       },
       {
-        "title": "editor",
-        "value": "editor",
-        "description": "Used to edit operation graphics and provides rich features and style configuration."
-      },
-      {
-        "title": "html",
-        "value": "html",
-        "description": "Render html related content"
-      },
-      {
-        "title": "scroll",
-        "value": "scroll",
-        "description": "Infinite canvas scroll bar, display horizontal and vertical scroll bars on demand"
-      },
-      {
-        "title": "arrow",
-        "value": "arrow",
-        "description": "Add start/end arrows for a line"
+        "title": "viewport",
+        "value": "viewport",
+        "description": "Viewport interaction (wheel/touchpad zoom & pan)."
       },
       {
         "title": "view",
         "value": "view",
-        "description": "Control the zoom of the view"
+        "description": "View control (zoom, fit, focus)."
       },
       {
-        "title": "state",
-        "value": "state",
-        "description": "Control the state of the element"
+        "title": "scroll",
+        "value": "scroll",
+        "description": "Infinite canvas scrollbars."
+      },
+      {
+        "title": "arrow",
+        "value": "arrow",
+        "description": "Line start/end arrows."
+      },
+      {
+        "title": "html",
+        "value": "html",
+        "description": "Render HTML content (web only)."
       },
       {
         "title": "text-editor",
         "value": "text-editor",
-        "description": "Double-click the text to enter the editing state"
+        "description": "Text editing on double-click (web PC only)."
       },
       {
-        "title": "flow",
-        "value": "flow",
-        "description": "Automatic layout"
-      },
-      {
-        "title": "animate",
-        "value": "animate",
-        "description": "Animation effect"
+        "title": "motion-path",
+        "value": "motion-path",
+        "description": "Motion path (move along path / stroke)."
       },
       {
         "title": "robot",
         "value": "robot",
-        "description": "sprite , used to make game action, configuration animation."
+        "description": "Robot sprite element (frame actions)."
+      },
+      {
+        "title": "state",
+        "value": "state",
+        "description": "Interactive states (hover/press/focus/selected/disabled)."
+      },
+      {
+        "title": "find",
+        "value": "find",
+        "description": "Find elements (selectors)."
+      },
+      {
+        "title": "export",
+        "value": "export",
+        "description": "Export elements (image/JSON)."
+      },
+      {
+        "title": "filter",
+        "value": "filter",
+        "description": "Custom filters."
+      },
+      {
+        "title": "color",
+        "value": "color",
+        "description": "Color format conversion / name to value."
+      },
+      {
+        "title": "resize",
+        "value": "resize",
+        "description": "Resize element/group bounds."
+      },
+      {
+        "title": "bright",
+        "value": "bright",
+        "description": "Dim and highlight elements."
       }
     ]
   },

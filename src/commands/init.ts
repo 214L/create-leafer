@@ -12,6 +12,34 @@ import {
   getLeaferVersion,
   getCommand
 } from '../../utils/index'
+const LeaferInPlugins = [
+  'viewport',
+  'view',
+  'scroll',
+  'arrow',
+  'html',
+  'text-editor',
+  'motion-path',
+  'robot',
+  'state',
+  'find',
+  'export',
+  'filter',
+  'color',
+  'resize',
+  'bright'
+]
+const editorIncludes = [
+  'text-editor',
+  'viewport',
+  'view',
+  'scroll',
+  'arrow',
+  'html',
+  'find',
+  'export'
+]
+const gameIncludes = ['robot', 'state', 'motion-path', 'find']
 const initOptionsSchema = z.object({
   cwd: z.string(),
 })
@@ -116,25 +144,18 @@ export const init = new Command()
       let dependencies = []
       let devDependencies = []
       let excludePlugin = []
-      if (result.sceneSelect === 'editor') {
-        dependencies.push(
-          result.supportPlatforms === 'web'
-            ? `leafer-editor`
-            : `@leafer-editor/${result.supportPlatforms}`
-        )
-        excludePlugin = ['editor', 'view', 'scroll', 'arrow', 'html']
-      } else if (result.sceneSelect === 'draw') {
-        dependencies.push(
-          result.supportPlatforms === 'web'
-            ? `leafer-draw`
-            : `@leafer-draw/${result.supportPlatforms}`
-        )
-      } else {
-        dependencies.push(
-          result.supportPlatforms === 'web'
-            ? `leafer-ui`
-            : `@leafer-ui/${result.supportPlatforms}`
-        )
+      const platform = result.supportPlatforms || 'web'
+      const scene = result.sceneSelect || 'ui'
+      dependencies.push(getScenePackage(scene, platform))
+      if (scene === 'editor') {
+        excludePlugin = editorIncludes
+      } else if (scene === 'game') {
+        excludePlugin = [...gameIncludes]
+        if (platform === 'node') {
+          excludePlugin.push('export')
+        }
+      } else if (scene === 'full') {
+        excludePlugin = LeaferInPlugins
       }
 
       //exclude plugin
@@ -143,7 +164,7 @@ export const init = new Command()
           .filter(item => !excludePlugin.includes(item))
           .map(item => {
             if (item === 'interface') {
-              devDependencies.push(`@leafer-in/${item}`)
+              devDependencies.push(`@leafer-ui/interface`)
             } else {
               dependencies.push(`@leafer-in/${item}`)
             }
@@ -159,6 +180,15 @@ export const init = new Command()
           console.log(
             red(
               '/* @leafer-in/html plugin not supported on non-web platforms, removed from dependencies */'
+            )
+          )
+        }
+        const textEditorIndex = dependencies.indexOf('@leafer-in/text-editor')
+        if (textEditorIndex !== -1) {
+          dependencies.splice(textEditorIndex, 1)
+          console.log(
+            red(
+              '/* @leafer-in/text-editor plugin only supports web PC, removed from dependencies */'
             )
           )
         }
@@ -210,12 +240,28 @@ export const init = new Command()
   })
 function handlePluginChoices(prev, choices) {
   if (prev === 'editor') {
-    let initChosen = ['editor', 'view', 'scroll', 'arrow', 'html']
     choices.forEach(item => {
-      if (initChosen.includes(item.value)) {
+      if (editorIncludes.includes(item.value)) {
         item.selected = true
       }
     })
   }
   return choices
+}
+
+function getScenePackage(scene: string, platform: string) {
+  const isWeb = platform === 'web'
+  if (scene === 'draw') {
+    return isWeb ? 'leafer-draw' : `@leafer-draw/${platform}`
+  }
+  if (scene === 'game') {
+    return isWeb ? 'leafer-game' : `@leafer-game/${platform}`
+  }
+  if (scene === 'editor') {
+    return isWeb ? 'leafer-editor' : `@leafer-editor/${platform}`
+  }
+  if (scene === 'full') {
+    return isWeb ? 'leafer' : `@leafer/${platform}`
+  }
+  return isWeb ? 'leafer-ui' : `@leafer-ui/${platform}`
 }

@@ -13,6 +13,35 @@ import {
   getCommand
 } from '../../utils/index'
 
+const LeaferInPlugins = [
+  'viewport',
+  'view',
+  'scroll',
+  'arrow',
+  'html',
+  'text-editor',
+  'motion-path',
+  'robot',
+  'state',
+  'find',
+  'export',
+  'filter',
+  'color',
+  'resize',
+  'bright'
+]
+const editorIncludes = [
+  'text-editor',
+  'viewport',
+  'view',
+  'scroll',
+  'arrow',
+  'html',
+  'find',
+  'export'
+]
+const gameIncludes = ['robot', 'state', 'motion-path', 'find']
+
 const addOptionsSchema = z.object({
   cwd: z.string()
 })
@@ -78,21 +107,22 @@ export const add = new Command()
         leaferInSelect?: string[]
       } = {}
 
-      // Pre-select scene based on existing leafer dependencies
-      const preSelectScene = Object.keys(existingDependencies).find(dep =>
-        ['leafer-editor', 'leafer-draw', 'leafer-ui'].includes(dep)
-      )
-      const selectedScene =
-        preSelectScene === 'leafer-editor'
-          ? 'editor'
-          : preSelectScene === 'leafer-draw'
-          ? 'draw'
-          : 'skip'
+      const allDeps = [
+        ...Object.keys(existingDependencies),
+        ...Object.keys(existingDevDependencies)
+      ]
+      const selectedScene = getSceneFromDeps(allDeps)
+      const platform = getPlatformFromDeps(allDeps)
 
       // Pre-select plugins based on existing leaferIn packages
-      const selectedPlugins = Object.keys(existingDependencies)
-        .filter(dep => dep.startsWith('@leafer-in/'))
-        .map(dep => dep.replace('@leafer-in/', ''))
+      const selectedPlugins = new Set(
+        allDeps
+          .filter(dep => dep.startsWith('@leafer-in/'))
+          .map(dep => dep.replace('@leafer-in/', ''))
+      )
+      if (allDeps.includes('@leafer-ui/interface')) {
+        selectedPlugins.add('interface')
+      }
 
       try {
         result = await prompts(
@@ -102,10 +132,12 @@ export const add = new Command()
               type: 'select',
               message: promptMessage.sceneSelect.message,
               choices: promptMessage.sceneSelect.choices,
-              initial:
+              initial: Math.max(
                 promptMessage.sceneSelect.choices
                   .map(item => item.value)
-                  .indexOf(selectedScene) || 0
+                  .indexOf(selectedScene),
+                0
+              )
             },
             {
               name: 'leaferInSelect',
@@ -115,7 +147,7 @@ export const add = new Command()
                 handlePluginChoices(
                   prev,
                   promptMessage.leaferInSelect.choices,
-                  selectedPlugins
+                  Array.from(selectedPlugins)
                 ),
               hint: promptMessage.leaferInSelect.hint,
               instructions: false,
@@ -140,13 +172,17 @@ export const add = new Command()
       let dependencies = []
       let devDependencies = []
       let excludePlugin = []
-      if (result.sceneSelect === 'editor') {
-        dependencies.push(`leafer-editor`)
-        excludePlugin = ['editor', 'view', 'scroll', 'arrow', 'html']
-      } else if (result.sceneSelect === 'draw') {
-        dependencies.push(`leafer-draw`)
-      } else {
-        dependencies.push(`leafer-ui`)
+      const scene = result.sceneSelect || 'ui'
+      dependencies.push(getScenePackage(scene, platform))
+      if (scene === 'editor') {
+        excludePlugin = editorIncludes
+      } else if (scene === 'game') {
+        excludePlugin = [...gameIncludes]
+        if (platform === 'node') {
+          excludePlugin.push('export')
+        }
+      } else if (scene === 'full') {
+        excludePlugin = LeaferInPlugins
       }
 
       // Exclude plugins if necessary
@@ -155,7 +191,7 @@ export const add = new Command()
           .filter(item => !excludePlugin.includes(item))
           .map(item => {
             if (item === 'interface') {
-              devDependencies.push(`@leafer-in/${item}`)
+              devDependencies.push(`@leafer-ui/interface`)
             } else {
               dependencies.push(`@leafer-in/${item}`)
             }
@@ -207,10 +243,8 @@ export const add = new Command()
   })
 
 function handlePluginChoices(prev, choices, selectedPlugins) {
-  const initChosen = ['editor', 'view', 'scroll', 'arrow', 'html']
-
   choices.forEach(item => {
-    if (prev === 'editor' && initChosen.includes(item.value)) {
+    if (prev === 'editor' && editorIncludes.includes(item.value)) {
       item.selected = true
     }
     if (selectedPlugins.includes(item.value)) {
@@ -219,4 +253,85 @@ function handlePluginChoices(prev, choices, selectedPlugins) {
   })
 
   return choices
+}
+
+function getSceneFromDeps(deps: string[]) {
+  if (deps.some(dep => dep === 'leafer' || dep.startsWith('@leafer/'))) {
+    return 'full'
+  }
+  if (
+    deps.some(dep => dep === 'leafer-editor' || dep.startsWith('@leafer-editor/'))
+  ) {
+    return 'editor'
+  }
+  if (
+    deps.some(dep => dep === 'leafer-game' || dep.startsWith('@leafer-game/'))
+  ) {
+    return 'game'
+  }
+  if (
+    deps.some(dep => dep === 'leafer-draw' || dep.startsWith('@leafer-draw/'))
+  ) {
+    return 'draw'
+  }
+  if (
+    deps.some(dep => dep === 'leafer-ui' || dep.startsWith('@leafer-ui/'))
+  ) {
+    return 'ui'
+  }
+  return 'ui'
+}
+
+function getPlatformFromDeps(deps: string[]) {
+  if (
+    deps.some(dep =>
+      dep.startsWith('@leafer-ui/worker') ||
+      dep.startsWith('@leafer-draw/worker') ||
+      dep.startsWith('@leafer-game/worker') ||
+      dep.startsWith('@leafer-editor/worker') ||
+      dep.startsWith('@leafer/worker')
+    )
+  ) {
+    return 'worker'
+  }
+  if (
+    deps.some(dep =>
+      dep.startsWith('@leafer-ui/node') ||
+      dep.startsWith('@leafer-draw/node') ||
+      dep.startsWith('@leafer-game/node') ||
+      dep.startsWith('@leafer-editor/node') ||
+      dep.startsWith('@leafer/node')
+    )
+  ) {
+    return 'node'
+  }
+  if (
+    deps.some(dep =>
+      dep.startsWith('@leafer-ui/miniapp') ||
+      dep.startsWith('@leafer-draw/miniapp') ||
+      dep.startsWith('@leafer-game/miniapp') ||
+      dep.startsWith('@leafer-editor/miniapp') ||
+      dep.startsWith('@leafer/miniapp')
+    )
+  ) {
+    return 'miniapp'
+  }
+  return 'web'
+}
+
+function getScenePackage(scene: string, platform: string) {
+  const isWeb = platform === 'web'
+  if (scene === 'draw') {
+    return isWeb ? 'leafer-draw' : `@leafer-draw/${platform}`
+  }
+  if (scene === 'game') {
+    return isWeb ? 'leafer-game' : `@leafer-game/${platform}`
+  }
+  if (scene === 'editor') {
+    return isWeb ? 'leafer-editor' : `@leafer-editor/${platform}`
+  }
+  if (scene === 'full') {
+    return isWeb ? 'leafer' : `@leafer/${platform}`
+  }
+  return isWeb ? 'leafer-ui' : `@leafer-ui/${platform}`
 }

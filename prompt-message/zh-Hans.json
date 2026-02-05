@@ -14,43 +14,53 @@
     "message":"请选择想使用的框架:"
   },
   "sceneSelect": {
-    "message": "选择一个场景包以快速开始项目，或者跳过以进行详细选择。",
+    "message": "选择一个场景包以快速开始项目：",
     "choices": [
       {
-        "title": "跳过",
-        "value": "skip",
-        "description": "跳过场景选择"
-      },
-      {
-        "title": "editor",
-        "value": "editor",
-        "description": "基于 leafer-ui ，集成多个插件，适用于在线图形编辑的场景。"
+        "title": "ui",
+        "value": "ui",
+        "description": "通用场景，推荐安装 leafer-ui。"
       },
       {
         "title": "draw",
         "value": "draw",
-        "description": "leafer-ui 的简化版本，适用于纯绘图场景。"
+        "description": "高效绘图场景，推荐安装 leafer-draw。"
+      },
+      {
+        "title": "game",
+        "value": "game",
+        "description": "游戏开发场景，推荐安装 leafer-game（已集成游戏相关插件）。"
+      },
+      {
+        "title": "editor",
+        "value": "editor",
+        "description": "图形编辑场景，推荐安装 leafer-editor（已集成图形编辑插件）。"
+      },
+      {
+        "title": "full",
+        "value": "full",
+        "description": "全量包，安装 leafer（包含 leafer-ui 与 @leafer-in/*）。"
       }
     ]
   },
   "leaferInSelect": {
     "message": "选择你想要的官方功能插件：",
-    "hint": "- 按下空格键选择，回车键提交",
+    "hint": "- 按下空格键选择，回车键提交，可使用方向键滚动",
     "choices": [
       {
         "title": "interface",
         "value": "interface",
-        "description": "官方插件的TypeScript类型"
+        "description": "接口包（插件开发依赖）"
       },
       {
-        "title": "editor",
-        "value": "editor",
-        "description": "用于编辑操作图形，提供了丰富的功能和样式配置"
+        "title": "viewport",
+        "value": "viewport",
+        "description": "视口交互（滚轮/触控板缩放与平移）"
       },
       {
-        "title": "html",
-        "value": "html",
-        "description": "用于渲染 HTML 相关内容"
+        "title": "view",
+        "value": "view",
+        "description": "视图控制（缩放、fit、聚焦）"
       },
       {
         "title": "scroll",
@@ -60,37 +70,62 @@
       {
         "title": "arrow",
         "value": "arrow",
-        "description": "为线条添加起始/结束箭头"
+        "description": "线条起始/结束箭头"
       },
       {
-        "title": "view",
-        "value": "view",
-        "description": "控制视图的缩放"
-      },
-      {
-        "title": "state",
-        "value": "state",
-        "description": "控制元素的状态"
+        "title": "html",
+        "value": "html",
+        "description": "渲染 HTML 内容（仅 web）"
       },
       {
         "title": "text-editor",
         "value": "text-editor",
-        "description": "双击文本进入编辑状态"
+        "description": "文本编辑（双击 Text 进入编辑，仅 web PC）"
       },
       {
-        "title": "flow",
-        "value": "flow",
-        "description": "自动布局"
-      },
-      {
-        "title": "animate",
-        "value": "animate",
-        "description": "动画"
+        "title": "motion-path",
+        "value": "motion-path",
+        "description": "运动路径（沿路径运动/描边）"
       },
       {
         "title": "robot",
         "value": "robot",
-        "description": "sprite ，可用于制作游戏动作、组态动画"
+        "description": "Robot 精灵元素（帧动画与动作预设）"
+      },
+      {
+        "title": "state",
+        "value": "state",
+        "description": "交互状态样式（hover/press/focus/selected/disabled）"
+      },
+      {
+        "title": "find",
+        "value": "find",
+        "description": "查找元素（选择器）"
+      },
+      {
+        "title": "export",
+        "value": "export",
+        "description": "导出元素（图片/JSON）"
+      },
+      {
+        "title": "filter",
+        "value": "filter",
+        "description": "自定义滤镜"
+      },
+      {
+        "title": "color",
+        "value": "color",
+        "description": "颜色格式转换/色彩名转色值"
+      },
+      {
+        "title": "resize",
+        "value": "resize",
+        "description": "调整元素/组包围盒大小"
+      },
+      {
+        "title": "bright",
+        "value": "bright",
+        "description": "淡化/突出显示元素"
       }
     ]
   },
