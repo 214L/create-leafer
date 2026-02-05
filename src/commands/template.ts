@@ -13,6 +13,7 @@ import {
   emptyDirectory,
   isValidNpmPackageName,
   renderTemplate,
+  updateLeaferDeps,
   getUser,
   FRAMEWORKS,
   Framework
@@ -188,21 +189,6 @@ export const template = new Command()
       throw new Error('No template variant selected')
     }
 
-    const isLeaferPackage = (name: string) =>
-      name === 'leafer' ||
-      name.startsWith('leafer-') ||
-      name.startsWith('@leafer-') ||
-      name.startsWith('@leafer/')
-
-    const updateLeaferDeps = (deps: Record<string, string> | undefined) => {
-      if (!deps) return
-      Object.keys(deps).forEach(key => {
-        if (isLeaferPackage(key)) {
-          deps[key] = `^${leaferVersion}`
-        }
-      })
-    }
-
     //handle leafer version
     let packagePath = path.resolve(root, 'package.json')
     if (fs.existsSync(packagePath)) {
@@ -210,8 +196,8 @@ export const template = new Command()
       existing.name = pkg.name
       existing.author = pkg.author
       //handle leafer version
-      updateLeaferDeps(existing.dependencies)
-      updateLeaferDeps(existing.devDependencies)
+      updateLeaferDeps(existing.dependencies, leaferVersion)
+      updateLeaferDeps(existing.devDependencies, leaferVersion)
       fs.writeFileSync(packagePath, JSON.stringify(existing, null, 2))
     }
     //finish

@@ -27,9 +27,17 @@ const LeaferInPlugins = [
   'export',
   'filter',
   'color',
+  'animate',
   'resize',
+  'flow',
+  'editor',
   'bright'
 ]
+const LeaferInDependencies = {
+  animate: ['color'],
+  flow: ['resize'],
+  editor: ['resize']
+}
 const editorIncludes = [
   'text-editor',
   'viewport',
@@ -150,9 +158,10 @@ export const add = new Command()
                   Array.from(selectedPlugins)
                 ),
               hint: promptMessage.leaferInSelect.hint,
+              onRender: createLeaferInSelectRenderHandler(promptMessage),
               instructions: false,
               min: 0,
-              max: 10
+              max: 20
             }
           ],
           {
@@ -253,6 +262,55 @@ function handlePluginChoices(prev, choices, selectedPlugins) {
   })
 
   return choices
+}
+
+function formatDependencyMessage(template: string, main: string, dep: string) {
+  return template
+    .replace(/\{main\}/g, main)
+    .replace(/\{dep\}/g, dep)
+}
+
+function createLeaferInSelectRenderHandler(promptMessage) {
+  const template = promptMessage?.leaferInSelect?.dependencyMessage || ''
+  let initialized = false
+  let lastSelected = new Set<string>()
+
+  return function handleRender() {
+    if (!this || !Array.isArray(this.value)) return
+    const selected = new Set(
+      this.value
+        .filter(item => item.selected)
+        .map(item => String(item.value))
+    )
+
+    const newlySelectedMain = new Set<string>()
+    Object.keys(LeaferInDependencies).forEach(main => {
+      if (selected.has(main) && !lastSelected.has(main)) {
+        newlySelectedMain.add(main)
+      }
+    })
+
+    Object.entries(LeaferInDependencies).forEach(([main, deps]) => {
+      if (!selected.has(main)) return
+      deps.forEach(dep => {
+        if (!selected.has(dep)) {
+          const choice = this.value.find(item => item.value === dep)
+          if (choice) {
+            choice.selected = true
+            selected.add(dep)
+            if (initialized && newlySelectedMain.has(main) && template) {
+              console.log(formatDependencyMessage(template, main, dep))
+            }
+          }
+        }
+      })
+    })
+
+    lastSelected = new Set(selected)
+    if (!initialized) {
+      initialized = true
+    }
+  }
 }
 
 function getSceneFromDeps(deps: string[]) {

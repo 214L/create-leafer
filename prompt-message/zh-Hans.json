@@ -46,6 +46,7 @@
   "leaferInSelect": {
     "message": "选择你想要的官方功能插件：",
     "hint": "- 按下空格键选择，回车键提交，可使用方向键滚动",
+    "dependencyMessage": "已选择 {main}，其依赖 {dep} 将保持勾选。",
     "choices": [
       {
         "title": "interface",
@@ -118,9 +119,24 @@
         "description": "颜色格式转换/色彩名转色值"
       },
       {
+        "title": "animate",
+        "value": "animate",
+        "description": "动画能力（需配合 color 插件）"
+      },
+      {
         "title": "resize",
         "value": "resize",
         "description": "调整元素/组包围盒大小"
+      },
+      {
+        "title": "flow",
+        "value": "flow",
+        "description": "流式布局能力（需配合 resize 插件）"
+      },
+      {
+        "title": "editor",
+        "value": "editor",
+        "description": "编辑器扩展能力（需配合 resize 插件）"
       },
       {
         "title": "bright",

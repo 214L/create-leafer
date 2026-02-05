@@ -2,6 +2,7 @@ import { execSync } from 'node:child_process';
 import path from 'node:path';
 import fs from 'node:fs';
 import { bold, lightGreen, lightYellow } from 'kolorist';
+import { getNpmRegistry } from './getUserInfo';
 
 const FallbackRegistries = [
   'https://registry.npmjs.org/',
@@ -95,7 +96,10 @@ const LeaferInPackage = {
   '@leafer-in/export': { type: 'save' },
   '@leafer-in/filter': { type: 'save' },
   '@leafer-in/color': { type: 'save' },
+  '@leafer-in/animate': { type: 'save' },
   '@leafer-in/resize': { type: 'save' },
+  '@leafer-in/flow': { type: 'save' },
+  '@leafer-in/editor': { type: 'save' },
   '@leafer-in/bright': { type: 'save' },
 };
 
@@ -135,6 +139,7 @@ export async function getLeaferVersion(): Promise<string> {
   console.log(bold(lightGreen('Fetching Leafer version...')));
   const defaultVersion = '2.0.0';
   const timeout = 10000; // 10 seconds
+  const usePromiseAny = typeof Promise.any === 'function';
 
   const getNpmShowVersion = async (): Promise<string> => {
     try {
@@ -158,11 +163,32 @@ export async function getLeaferVersion(): Promise<string> {
   };
 
   try {
-    const versionPromises = [
-      getNpmShowVersion(),
-      ...FallbackRegistries.map(fetchVersionFromRegistry),
-    ];
-    return await Promise.any(versionPromises);
+    const registries = getRegistryList();
+
+    if (usePromiseAny) {
+      try {
+        return await getNpmShowVersion();
+      } catch {
+        // Fallback to registry fetch
+      }
+      return await Promise.any(registries.map(fetchVersionFromRegistry));
+    }
+
+    try {
+      return await getNpmShowVersion();
+    } catch {
+      // Fallback to registry fetch
+    }
+
+    for (const registry of registries) {
+      try {
+        return await fetchVersionFromRegistry(registry);
+      } catch {
+        // Continue to next registry
+      }
+    }
+
+    throw new Error('All Leafer version fetching methods failed.');
   } catch {
     console.error(bold(lightYellow(`All Leafer version fetching methods failed. Using default version: ${defaultVersion}.`)));
     return defaultVersion;
@@ -216,11 +242,34 @@ async function fetchWithTimeout(url: string, timeout: number): Promise<Response>
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), timeout);
   try {
-    const response = await fetch(url, { signal: controller.signal });
+    const fetchFn = await getFetch();
+    const response = await fetchFn(url, { signal: controller.signal });
     clearTimeout(timeoutId);
     return response;
   } catch (error) {
     clearTimeout(timeoutId);
     throw error
   }
+}
+
+function normalizeRegistry(registry: string) {
+  if (!registry) return '';
+  return registry.endsWith('/') ? registry : `${registry}/`;
+}
+
+function getRegistryList() {
+  const registry = normalizeRegistry(getNpmRegistry());
+  const registries = [
+    registry,
+    ...FallbackRegistries.map(normalizeRegistry),
+  ].filter(Boolean);
+  return Array.from(new Set(registries));
+}
+
+async function getFetch(): Promise<typeof fetch> {
+  if (typeof fetch === 'function') {
+    return fetch;
+  }
+  const { default: fetchFn } = await import('node-fetch');
+  return fetchFn as unknown as typeof fetch;
 }

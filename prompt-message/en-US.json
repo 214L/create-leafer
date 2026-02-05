@@ -46,6 +46,7 @@
   "leaferInSelect": {
     "message": "Choose the official feature plugins you want.",
     "hint": "- Space to select. Return to submit. Use Up/Down to scroll",
+    "dependencyMessage": "Selected {main}; its dependency {dep} will remain selected.",
     "choices": [
       {
         "title": "interface",
@@ -118,9 +119,24 @@
         "description": "Color format conversion / name to value."
       },
       {
+        "title": "animate",
+        "value": "animate",
+        "description": "Animation capabilities (requires the color plugin)."
+      },
+      {
         "title": "resize",
         "value": "resize",
         "description": "Resize element/group bounds."
+      },
+      {
+        "title": "flow",
+        "value": "flow",
+        "description": "Flow layout capabilities (requires the resize plugin)."
+      },
+      {
+        "title": "editor",
+        "value": "editor",
+        "description": "Editor extension capabilities (requires the resize plugin)."
       },
       {
         "title": "bright",
