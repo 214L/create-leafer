@@ -102,8 +102,9 @@
     "message": "非空，是否覆盖？"
   },
   "packageName": {
-    "message": "请输入包名称:",
-    "invalidMessage": "无效的 package.json 名称"
+    "message": "请输入包名称（需符合 npm 包名规范）:",
+    "hint": "可留空，默认使用项目名",
+    "invalidMessage": "无效的 npm 包名"
   },
   "pluginPackageName": {
     "message": "请输入包名称:",

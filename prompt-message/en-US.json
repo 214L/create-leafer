@@ -102,8 +102,9 @@
     "message": "is not empty. Remove existing files and continue?"
   },
   "packageName": {
-    "message": "Package name:",
-    "invalidMessage": "Invalid package.json name"
+    "message": "Package name (must be a valid npm package name):",
+    "hint": "Leave empty to use the project name",
+    "invalidMessage": "Invalid npm package name"
   },
   "pluginPackageName": {
     "message": "Package name:",

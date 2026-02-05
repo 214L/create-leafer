@@ -11,8 +11,7 @@ import {
   getPrompt,
   canSkipOverwriteOption,
   emptyDirectory,
-  isValidPackageName,
-  toValidPackageName,
+  isValidNpmPackageName,
   renderTemplate,
   getUser,
   FRAMEWORKS,
@@ -83,14 +82,19 @@ export const template = new Command()
           },
           {
             name: 'packageName',
-            type: () => (isValidPackageName(targetDir) ? null : 'text'),
+            type: 'text',
             message: `${promptMessage.packageName.message}\n${gray(
               promptMessage.packageName.hint
             )}`,
-            initial: () => toValidPackageName(targetDir),
-            validate: dir =>
-              isValidPackageName(dir) ||
-              promptMessage.packageName.invalidMessage
+            initial: (_, values) => values.projectName,
+            validate: value => {
+              const normalized = String(value || '').trim()
+              if (!normalized) return true
+              return (
+                isValidNpmPackageName(normalized) ||
+                promptMessage.packageName.invalidMessage
+              )
+            }
           },
           {
             type: 'select',
@@ -135,10 +139,15 @@ export const template = new Command()
 
     const {
       projectName,
-      packageName = projectName ?? 'leafer-',
+      packageName,
       shouldOverwrite,
       variant
     } = result
+
+    const resolvedPackageName =
+      (packageName && packageName.trim()) ||
+      projectName ||
+      'leafer-project'
 
     const cwd = process.cwd()
     const root = path.join(cwd, targetDir)
@@ -154,7 +163,7 @@ export const template = new Command()
 
     //handle package.json
     const pkg = {
-      name: packageName,
+      name: resolvedPackageName,
       version: '0.0.0',
       author
     }

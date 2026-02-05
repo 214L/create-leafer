@@ -33,6 +33,7 @@
     "node-fetch": "^3.3.2",
     "ora": "^8.0.1",
     "prompts": "^2.4.2",
+    "validate-npm-package-name": "^5.0.1",
     "package-manager-detector": "^0.2.0",
     "type-fest": "^3.8.0",
     "zod": "^3.23.8"

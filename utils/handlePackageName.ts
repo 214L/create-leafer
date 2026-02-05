@@ -1,3 +1,5 @@
+import validatePackageName from 'validate-npm-package-name'
+
 export function isValidPackageName(projectName) {
   return /^(leafer-[a-z0-9-~][a-z0-9-._~]*|@[a-z0-9-*~][a-z0-9-*._~]*\/leafer-x[a-z0-9-._~]*)$/.test(
     projectName
@@ -17,6 +19,12 @@ export function toValidPackageName(projectName) {
   } else {
     return 'leafer-x-'
   }
+}
+
+export function isValidNpmPackageName(packageName) {
+  if (!packageName) return false
+  const result = validatePackageName(packageName)
+  return Boolean(result && result.validForNewPackages)
 }
 export function getGlobalName(str) {
   if (str.startsWith('@')) {
