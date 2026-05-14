@@ -8,12 +8,12 @@ English | [简体中文](./README.md)
 
 #### Usage
 
-##### Quickly Create a `Vue` + `Leafer` Template Project
+##### Quickly Create a `Leafer` Template Project
 
-Running this command will generate a `Vue3` + `TypeScript` + `Leafer` project template in the current directory, designed for quickly building a Leafer experience environment.
+Running this command will generate a `Vite` + `Leafer` project template in the current directory. You can choose `Vanilla` / `Vue` / `React` and `JavaScript` / `TypeScript` from prompts, designed for quickly building a Leafer experience environment.
 
 ```bash
-npm create leafer@latest vue-template
+npm create leafer@latest template
 ```
 
 ##### Import `Leafer` in Your Project
@@ -26,7 +26,7 @@ npm create leafer@latest init
 
 You need to run this command in a project (where a `package.json` file exists). It's recommended to first build your project using build tools like `vite` or `webpack`, and then use this command to smoothly import `leafer` dependencies.
 
-##### Add or Remove Leafer Dependencies in Your Project
+##### Add or Update Leafer Dependencies in Your Project
 
 Modify the Leafer dependencies in the current project.
 
@@ -34,7 +34,7 @@ Modify the Leafer dependencies in the current project.
 npm create leafer@latest add
 ```
 
-This command will interactively modify the Leafer dependencies in the current project. The project must include Leafer-related dependencies.
+This command will interactively add or update the Leafer dependencies in the current project. The project must include Leafer-related dependencies.
 
 ##### Update Leafer Dependencies version in Your Project‘s `package.json`
 
@@ -69,8 +69,8 @@ npm install -g create-leafer@latest
 After global installation, you can run functionalities using the `create-leafer` or `leafer` commands:
 
 ```bash
-npx leafer vue-template
-npx leafer init
-npx leafer plugin
+leafer template
+leafer init
+leafer plugin
 ...
 ```
