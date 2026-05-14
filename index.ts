@@ -13,6 +13,11 @@ process.on('SIGTERM', () => process.exit(0))
 
 async function main() {
   let packageInfo = { name: 'create-leafer', version: process.env.VERSION }
+  function shouldSkipUpdateCheck() {
+    return process.argv
+      .slice(2)
+      .some(arg => ['-h', '--help', '-v', '--version'].includes(arg))
+  }
   function checkForUpdates() {
     try {
       const latestVersion = execSync(`npm show ${packageInfo.name} version`)
@@ -42,7 +47,9 @@ async function main() {
     }
   }
 
-  checkForUpdates()
+  if (!shouldSkipUpdateCheck()) {
+    checkForUpdates()
+  }
 
   const program = new Command()
     .name('leafer')
