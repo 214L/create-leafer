@@ -22,12 +22,7 @@ import {
 export const template = new Command()
   .name('template')
   .description('generate template project powered by vite')
-  .option(
-    '-c, --cwd <cwd>',
-    'the working directory. defaults to the current directory.',
-    process.cwd()
-  )
-  .action(async opts => {
+  .action(async () => {
     const promptMessage = getPrompt()
     let leaferVersion = await getLeaferVersion()
     let banners = getBanners(promptMessage.language)
