@@ -8,6 +8,16 @@ English | [简体中文](./README.md)
 
 #### Usage
 
+##### Command Overview
+
+| Command | Usage |
+| --- | --- |
+| `template` | Create a new Leafer template project |
+| `init` | Import Leafer dependencies into an existing project |
+| `add` | Add or update Leafer dependencies in your project |
+| `update` | Update Leafer dependency versions in your project |
+| `plugin` | Create a LeaferX plugin template |
+
 ##### Quickly Create a `Leafer` Template Project
 
 Running this command will generate a `Vite` + `Leafer` project template in the current directory. You can choose `Vanilla` / `Vue` / `React` and `JavaScript` / `TypeScript` from prompts, designed for quickly building a Leafer experience environment.
@@ -15,6 +25,8 @@ Running this command will generate a `Vite` + `Leafer` project template in the c
 ```bash
 npm create leafer@latest template
 ```
+
+Built-in templates include `Vanilla` / `Vue` / `React`, each with `JavaScript` and `TypeScript` variants.
 
 ##### Import `Leafer` in Your Project
 
@@ -44,6 +56,7 @@ Check and update Leafer dependencies version number in your package.json.
 npm create leafer@latest update
 ```
 
+You need to run this command in a project that already includes Leafer-related dependencies.
 This command will read all `Leafer` dependencies in the project, fetch the latest version of Leafer, and modify the relevant version numbers in `package.json`. After completion, you need to run the installation command of your package manager to install the dependencies. If errors occur due to old version cache conflicts, you may need to delete the lock file and reinstall.
 
 ##### Quickly Create a LeaferX Plugin Template
@@ -74,3 +87,5 @@ leafer init
 leafer plugin
 ...
 ```
+
+If you prefer the full command, you can also replace `leafer` with `create-leafer`.
